@@ -12,7 +12,7 @@ type ButtonYellowProps = {
 const MainButton: FC<ButtonYellowProps> = ({ children, handlePress, style, isFilled = true, disabled }) => {
     if (disabled) {
         return (
-            <View style={[cs.yellowBtn, cs.fCenterCol, cs.bgDisabled, style]}>
+            <View style={[cs.mainBtn, cs.fCenterCol, cs.bgDisabled, style]}>
                 {children}
             </View>
         )
@@ -26,7 +26,7 @@ const MainButton: FC<ButtonYellowProps> = ({ children, handlePress, style, isFil
         );
     }
     return (
-        <TouchableOpacity onPress={handlePress} style={[cs.yellowBtn, cs.fCenterCol, styles.unfilledButton, style]}>
+        <TouchableOpacity onPress={handlePress} style={[cs.mainBtn, cs.fCenterCol, styles.unfilledButton, style]}>
             {children}
         </TouchableOpacity>
     )
