@@ -2,9 +2,10 @@ import React, { FC, useEffect } from 'react';
 import { StyleSheet, View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { handleOrderInfoModal } from '../app/features/modals/modalsSlice';
 import { useAppDispatch } from '../app/base/hooks';
 import { Login } from '../screens/Login';
+import { RestorePassword } from '../screens/RestorePassword';
+import { Register } from '../screens/Register';
 
 const Stack = createNativeStackNavigator()
 
@@ -13,10 +14,12 @@ const AppNavigator = () => {
 
     return (
         <NavigationContainer>
-            <View style={[styles.main, { backgroundColor: "blue", paddingTop: 80, paddingBottom: 30}]}>
-                <Stack.Navigator initialRouteName={"login"}
-                    screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "blue" } }}>
-                    <Stack.Screen name="login_phone" component={Login} />
+            <View style={[styles.main, { paddingTop: 70, paddingBottom: 30 }]}>
+                <Stack.Navigator initialRouteName={"register"}
+                    screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                    <Stack.Screen name="login" component={Login} />
+                    <Stack.Screen name="register" component={Register} />
+                    <Stack.Screen name="restore_password" component={RestorePassword} />
                 </Stack.Navigator>
             </View>
         </NavigationContainer>

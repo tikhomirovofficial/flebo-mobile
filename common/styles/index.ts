@@ -12,7 +12,7 @@ const cs = StyleSheet.create({
         display: "flex",
     },
     focusedInput: {
-        borderColor: "#FFCF00"
+        borderColor: "#0BA0B5"
     },
     bottomBorder: {
         borderBottomWidth: 1,
@@ -63,8 +63,9 @@ const cs = StyleSheet.create({
     jcCenter: {
         justifyContent: "center"
     },
-    textYellow: {
-        color: "#FFCF00"
+    blueLink: {
+        color: "#0BA0B5",
+        textDecorationLine: "underline"
     },
     modalCloseText: {
         paddingVertical: 6,
@@ -72,6 +73,14 @@ const cs = StyleSheet.create({
     },
     textRed: {
         color: "#F40F0F"
+    },
+    errBorderColor: {
+        borderColor: "#F40F0F",
+        borderWidth: 1
+    },
+    filledBorderColor: {
+        borderColor: "#454545",
+        borderWidth: 1
     },
     bgRed: {
         backgroundColor: "#F40F0F"
@@ -136,6 +145,12 @@ const cs = StyleSheet.create({
         borderRadius: 6,
         textAlign: "center"
     },
+    mainBtn: {
+        height: 60,
+        paddingHorizontal: 28,
+        borderRadius: 18,
+        textAlign: "center",
+    },
     lightGray: {
         borderRadius: 2,
         backgroundColor: "#F8F8F8",
@@ -156,8 +171,8 @@ const cs = StyleSheet.create({
         color: "#D7D7D7"
     },
     title: {
-        fontSize: 20,
-        fontFamily: "MontserratBold",
+        fontSize: 48,
+        fontFamily: "ProximaNovaRegular",
     },
     colorWhite: {
         color: "#fff"
@@ -192,9 +207,32 @@ const cs = StyleSheet.create({
     spaceS: {
         gap: 8
     },
+    spaceXS: {
+        gap: 4
+    },
     circle: {
         borderRadius: 1000
     },
+    fReg: {
+        fontFamily: "RalewayRegular"
+    },
+    fMed: {
+        fontFamily: "RalewayMedium"
+    },
+    fSemi: {
+        fontFamily: "RalewaySemiBold"
+    },
+    fBold: {
+        fontFamily: "RalewayBold"
+    },
+    text: {
+        fontSize: 14,
+        fontFamily: "RalewayRegular"
+    },
+    inputText: {
+        fontSize: 16,
+        fontFamily: "RalewayMedium"
+    }
 
 })
 export {

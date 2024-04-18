@@ -7,41 +7,33 @@ import { InputField } from '../../components/InputField';
 import MainButton from '../../components/MainButton';
 import { phoneMask } from '../../config/masks';
 import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
-import { handleLoginForm } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
+import { handleRegisterForm } from '../../app/features/auth/registerSlice';
 
-export const Login: FC<NavProps> = ({ navigation }) => {
+export const Register: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
-    const { data } = useAppSelector(state => state.login)
+    const { data } = useAppSelector(state => state.register)
+
     return (
         <AppContainer style={{ height: "100%" }}>
             <View style={[cs.flexOne, cs.fColumnBetw]}>
-                <View style={{ height: 32, width: 1 }}></View>
-                {/* <BackIcon /> */}
+                <BackIcon />
                 <View style={[cs.fColumnBetw, { flex: 1, paddingTop: "26%" }]}>
                     <View style={[cs.fColumn, cs.spaceL]}>
-                        <Text style={[cs.title]}>Войти</Text>
+                        <Text style={[cs.title]}>Регистрация</Text>
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <View style={[cs.fColumn, cs.spaceM]}>
-                                <View style={[cs.fColumn, cs.spaceS]}>
-                                    <View style={[cs.fColumn, cs.spaceM]}>
-                                        <Text style={[cs.fzS, cs.text]}>Введите номер телефона и пароль</Text>
-                                        <InputField type={"number-pad"} placeholder='+7' mask={phoneMask} val={data.phone} onChange={(val) => dispatch(handleLoginForm({ key: "phone", val }))} />
-                                        <InputField hideValue placeholder='Пароль' val={data.password} onChange={(val) => dispatch(handleLoginForm({ key: "password", val }))} />
-                                    </View>
-                                    <View style={{ alignItems: "flex-end" }}>
-                                        <Text onPress={() => navigation.navigate("restore_password")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Забыли пароль?</Text>
-                                    </View>
-
+                                <View style={[cs.fColumn, cs.spaceM]}>
+                                    <Text style={[cs.fzS, cs.text]}>Введите номер телефона</Text>
+                                    <InputField type={"number-pad"} placeholder='+7' mask={phoneMask} val={data.phone} onChange={(val) => dispatch(handleRegisterForm({ key: "phone", val }))} />
                                 </View>
-
                                 <MainButton handlePress={() => { }}>
                                     <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                                 </MainButton>
                             </View>
                             <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter,]}>
-                                <Text style={[cs.text]}>Нет аккаунта?</Text>
-                                <Text onPress={() => navigation.navigate("register")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Зарегистрируйтесь</Text>
+                                <Text style={[cs.text]}>Уже зарегистрированы?</Text>
+                                <Text onPress={() => navigation.navigate("login")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Войдите</Text>
                             </View>
 
                         </View>
