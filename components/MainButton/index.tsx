@@ -20,13 +20,13 @@ const MainButton: FC<ButtonYellowProps> = ({ children, handlePress, style, isFil
     }
     if (isFilled) {
         return (
-            <TouchableOpacity style={[cs.mainBtn, cs.fCenterCol, {backgroundColor: "#0BA0B5"}]} onPress={handlePress}>
+            <TouchableOpacity style={[cs.mainBtn, cs.fCenterRow, {backgroundColor: "#0BA0B5"}, style]} onPress={handlePress}>
                 {children}
             </TouchableOpacity>
         );
     }
     return (
-        <TouchableOpacity onPress={handlePress} style={[cs.mainBtn, cs.fCenterCol, styles.unfilledButton, style]}>
+        <TouchableOpacity onPress={handlePress} style={[cs.mainBtn, cs.fCenterRow, styles.unfilledButton, style]}>
             {children}
         </TouchableOpacity>
     )
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     unfilledButton: {
         backgroundColor: "transparent",
         borderStyle: "solid",
-        borderColor: "#FFCB3D",
+        borderColor: "#A9A9A9",
         borderWidth: 1
     }
 })

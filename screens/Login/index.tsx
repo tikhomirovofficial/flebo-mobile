@@ -9,51 +9,49 @@ import { phoneMask } from '../../config/masks';
 import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
 import { handleLoginForm } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
+import { MainContainer } from '../../components/MainContainer';
 
 export const Login: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { data } = useAppSelector(state => state.login)
     return (
-        <AppContainer style={{ height: "100%" }}>
-            <View style={[cs.flexOne, cs.fColumnBetw]}>
-                <View style={{ height: 32, width: 1 }}></View>
-                {/* <BackIcon /> */}
-                <View style={[cs.fColumnBetw, { flex: 1, paddingTop: "26%" }]}>
-                    <View style={[cs.fColumn, cs.spaceL]}>
-                        <Text style={[cs.title]}>Войти</Text>
-                        <View style={[cs.fColumn, cs.spaceM]}>
+        <MainContainer>
+            <AppContainer style={{ height: "100%" }}>
+                <View style={[cs.flexOne, cs.fColumnBetw]}>
+                    <View style={{ height: 32, width: 1 }}></View>
+                    {/* <BackIcon /> */}
+                    <View style={[cs.fColumnBetw, { flex: 1, paddingTop: "26%" }]}>
+                        <View style={[cs.fColumn, cs.spaceL]}>
+                            <Text style={[cs.title]}>Войти</Text>
                             <View style={[cs.fColumn, cs.spaceM]}>
-                                <View style={[cs.fColumn, cs.spaceS]}>
-                                    <View style={[cs.fColumn, cs.spaceM]}>
-                                        <Text style={[cs.fzS, cs.text]}>Введите номер телефона и пароль</Text>
-                                        <InputField type={"number-pad"} placeholder='+7' mask={phoneMask} val={data.phone} onChange={(val) => dispatch(handleLoginForm({ key: "phone", val }))} />
-                                        <InputField hideValue placeholder='Пароль' val={data.password} onChange={(val) => dispatch(handleLoginForm({ key: "password", val }))} />
+                                <View style={[cs.fColumn, cs.spaceM]}>
+                                    <View style={[cs.fColumn, cs.spaceS]}>
+                                        <View style={[cs.fColumn, cs.spaceM]}>
+                                            <Text style={[cs.fzS, cs.text]}>Введите номер телефона и пароль</Text>
+                                            <InputField type={"number-pad"} placeholder='+7' mask={phoneMask} val={data.phone} onChange={(val) => dispatch(handleLoginForm({ key: "phone", val }))} />
+                                            <InputField hideValue placeholder='Пароль' val={data.password} onChange={(val) => dispatch(handleLoginForm({ key: "password", val }))} />
+                                        </View>
+                                        <View style={{ alignItems: "flex-end" }}>
+                                            <Text onPress={() => navigation.navigate("restore_password")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Забыли пароль?</Text>
+                                        </View>
                                     </View>
-                                    <View style={{ alignItems: "flex-end" }}>
-                                        <Text onPress={() => navigation.navigate("restore_password")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Забыли пароль?</Text>
-                                    </View>
-
+                                    <MainButton handlePress={() => { }}>
+                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
+                                    </MainButton>
                                 </View>
-
-                                <MainButton handlePress={() => { }}>
-                                    <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
-                                </MainButton>
+                                <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter,]}>
+                                    <Text style={[cs.text]}>Нет аккаунта?</Text>
+                                    <Text onPress={() => navigation.navigate("register")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Зарегистрируйтесь</Text>
+                                </View>
                             </View>
-                            <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter,]}>
-                                <Text style={[cs.text]}>Нет аккаунта?</Text>
-                                <Text onPress={() => navigation.navigate("register")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Зарегистрируйтесь</Text>
-                            </View>
-
+                        </View>
+                        <View style={[cs.fAlCenter]}>
+                            <Text style={[{ width: "78%" }, cs.txtCenter, cs.fzS, cs.fReg]}>Нажимая на кнопку, я даю согласие на обработку <Text style={[cs.blueLink, cs.fSemi]}>персональных данных</Text></Text>
                         </View>
                     </View>
-                    <View style={[cs.fAlCenter]}>
-                        <Text style={[{ width: "78%" }, cs.txtCenter, cs.fzS, cs.fReg]}>Нажимая на кнопку, я даю согласие на обработку <Text style={[cs.blueLink, cs.fSemi]}>персональных данных</Text></Text>
-                    </View>
-
-
                 </View>
+            </AppContainer>
+        </MainContainer>
 
-            </View>
-        </AppContainer>
     )
 }

@@ -116,6 +116,10 @@ const cs = StyleSheet.create({
         fontSize: 48,
         fontFamily: "ProximaNovaRegular",
     },
+    subTitle: {
+        fontSize: 32,
+        fontFamily: "ProximaNovaRegular",
+    },
     // INPUTS
     focusedInput: {
         borderColor: "#0BA0B5"
@@ -152,8 +156,8 @@ const cs = StyleSheet.create({
     bgRed: {
         backgroundColor: "#F40F0F"
     },
-    fwBold: {
-        fontFamily: "MontserratBold",
+    bgGray: {
+        backgroundColor: "#F1F4FA"
     },
     bgDisabled: {
         backgroundColor: "#F0F0F0"
@@ -195,10 +199,13 @@ const cs = StyleSheet.create({
         color: "black"
     },
     colorDark: {
-        color: "#4D4D4D"
+        color: "#454545"
     },
     colorRed: {
         color: "#F40F0F"
+    },
+    colorCaption: {
+        color: "#818181",
     },
     colorGray: {
         color: "#A9A9A9"
@@ -207,6 +214,10 @@ const cs = StyleSheet.create({
     circle: {
         borderRadius: 1000
     },
+    //BORDER RADIUSES
+    mainRadius: {
+        borderRadius: 15
+    }
 })
 export {
     cs
