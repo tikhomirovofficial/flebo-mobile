@@ -14,7 +14,8 @@ import { ServiceItem } from '../../components/ServiceItem';
 import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 
-const ServiceImage = require('../../assets/images/service.jpg')
+const UziServiceImage = require('../../assets/images/services/uzi.jpg')
+const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
 const DoctorImage = require('../../assets/images/doctor.jpg')
 
 export const Main: FC<NavProps> = ({ navigation }) => {
@@ -48,8 +49,8 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
                         <Text style={[cs.subTitle]}>Услуги</Text>
                         <View style={[cs.fRowBetw]}>
-                            <ServiceItem style={{ width: "47%" }} title={"УЗИ"} image={ServiceImage} />
-                            <ServiceItem style={{ width: "47%" }} title={"УЗИ"} image={ServiceImage} />
+                            <ServiceItem style={{ width: "47%" }} title={"УЗИ"} image={UziServiceImage} />
+                            <ServiceItem style={{ width: "47%" }} title={"Сдать анализы"} image={AnalisysServiceImage} />
                         </View>
                     </AppContainer>
                     {/* <View style={[cs.fColumn, cs.spaceM]}>

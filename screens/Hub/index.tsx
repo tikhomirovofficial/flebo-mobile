@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
-import { BackIcon, DocsIcon, HistoryIcon, PlanIcon, ProfileIcon } from '../../icons';
+import { BackIcon, DocsIcon, HistoryIcon, PenDrawedUnderIcon, PlanIcon, ProfileIcon } from '../../icons';
 import { InputField } from '../../components/InputField';
 import MainButton from '../../components/MainButton';
 import { phoneMask } from '../../config/masks';
@@ -24,8 +24,8 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                                 <Text style={[cs.title]}>Здравствуйте, Артём!</Text>
                                 <View style={[cs.fColumn, cs.spaceM]}>
                                     <MainButton style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
-                                        <ProfileIcon />
-                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fMed]}>Профиль</Text>
+                                        <PenDrawedUnderIcon height={18} width={18} />
+                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fMed]}>Личные данные</Text>
                                     </MainButton>
                                     <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
                                         <HistoryIcon />

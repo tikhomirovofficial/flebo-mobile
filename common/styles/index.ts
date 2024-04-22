@@ -106,7 +106,8 @@ const cs = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-        fontFamily: "RalewayRegular"
+        fontFamily: "RalewayRegular",
+        lineHeight: 21
     },
     inputText: {
         fontSize: 16,

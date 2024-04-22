@@ -15,7 +15,8 @@ import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 import { ServiceBigItem } from '../../components/ServiceBigItem';
 
-const ServiceImage = require('../../assets/images/service.jpg')
+const UziServiceImage = require('../../assets/images/services/uzi.jpg')
+const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
 
 export const Services: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
@@ -26,8 +27,8 @@ export const Services: FC<NavProps> = ({ navigation }) => {
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
                     <Text style={[cs.title]}>Услуги</Text>
                     <View style={[cs.fColumn, cs.spaceM]}>
-                        <ServiceBigItem title={"УЗИ"} image={ServiceImage} />
-                        <ServiceBigItem title={"Сдать анализы"} image={ServiceImage} />
+                        <ServiceBigItem title={"УЗИ"} image={UziServiceImage} />
+                        <ServiceBigItem title={"Сдать анализы"} image={AnalisysServiceImage} />
 
                     </View>
                 </AppContainer>

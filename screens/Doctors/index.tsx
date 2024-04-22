@@ -23,9 +23,6 @@ export const Doctors: FC<NavProps> = ({ navigation }) => {
         <ScrollView>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
-                    <TouchableOpacity style={[{width: 60, paddingBottom: 4 }]} onPress={() => navigation.goBack()}>
-                        <BackIcon />
-                    </TouchableOpacity>
                     <Text style={[cs.title]}>Список врачей</Text>
                     <View style={[cs.fColumn, cs.spaceM]}>
                         <View style={[cs.fColumn, cs.spaceM]}>
