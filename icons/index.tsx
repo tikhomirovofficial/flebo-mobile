@@ -139,3 +139,32 @@ export const PenDrawedUnderIcon: FC<IconProps> = ({ width = 14, height = 16, str
         </Svg>
     )
 }
+export const ArrowBlockLeft: FC<IconProps> = ({ width = 32, height = 32, stroke = "#0BA0B5" }) => {
+    return (
+        <Svg width={width} height={height} viewBox="0 0 32 32" fill="none">
+            <Rect width="32" height="32" rx="6" transform="matrix(-1 0 0 1 32 0)" fill="white" />
+            <Path d="M19.027 8.64868L12.1081 15.5676L19.027 22.4865" stroke="#0BA0B5" strokeWidth="2" />
+        </Svg>
+
+    )
+}
+
+export const ArrowBlockRight: FC<IconProps> = ({ width = 32, height = 32, stroke = "#0BA0B5" }) => {
+    return (
+        <Svg width={width} height={height} viewBox="0 0 32 32" fill="none">
+            <Rect width="32" height="32" rx="6" fill="white" />
+            <Path d="M12.973 8.64868L19.8919 15.5676L12.973 22.4865" stroke="#0BA0B5" strokeWidth="2" />
+        </Svg>
+
+    )
+}
+export const DropDownIcon: FC<IconProps> = ({ width = 32, height = 32, stroke = "#0BA0B5" }) => {
+    return (
+        <Svg width={width} height={height} viewBox="0 0 12 6" fill="none">
+            <Path d="M6 6L0 0H12L6 6Z" fill="#3B3B3B" />
+        </Svg>
+
+    )
+}
+
+

@@ -218,6 +218,18 @@ const cs = StyleSheet.create({
     //BORDER RADIUSES
     mainRadius: {
         borderRadius: 15
+    },
+    //SHADOWS
+    btnShadow: {
+        shadowColor: "rgba(19, 101, 101, 0.4)",
+        shadowOffset: {
+            width: 4,
+            height: 4,
+        },
+        shadowOpacity: 0.4,
+        shadowRadius: 8,
+        backgroundColor: "white",
+        elevation: 4,
     }
 })
 export {

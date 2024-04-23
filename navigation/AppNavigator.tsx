@@ -44,11 +44,10 @@ const MainTabs: FC<NavProps> = ({ navigation }) => {
 
 const AppNavigator = () => {
     const dispatch = useAppDispatch()
-
     return (
         <NavigationContainer>
             <View style={[styles.main]}>
-                <Stack.Navigator initialRouteName={"home"}
+                <Stack.Navigator initialRouteName={"create_profile"}
                     screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                     <Stack.Screen name="login" component={Login} />
                     <Stack.Screen name="register" component={Register} />

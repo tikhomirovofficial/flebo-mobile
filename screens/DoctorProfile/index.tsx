@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
-import { ArrowRight, BackIcon, DocsIcon, DoctorThingIcon, HistoryIcon, MenuIcon, PenDrawedIcon, PenDrawedUnderIcon, PlanIcon, ProfileIcon, SearchIcon } from '../../icons';
+import { ArrowBlockLeft, ArrowBlockRight, ArrowRight, BackIcon, DocsIcon, DoctorThingIcon, HistoryIcon, MenuIcon, PenDrawedIcon, PenDrawedUnderIcon, PlanIcon, ProfileIcon, SearchIcon } from '../../icons';
 import { InputField } from '../../components/InputField';
 import MainButton from '../../components/MainButton';
 import { phoneMask } from '../../config/masks';
@@ -79,16 +79,36 @@ export const DoctorProfile: FC<NavProps> = ({ navigation }) => {
                                 Удаление хронической анальной трещины
                                 Современные методы консервативной терапии трещин</Text>
                         </View>
-                        <View  style={[cs.fColumn, cs.spaceXL]}>
+                        <View style={[cs.fColumn, cs.spaceXL]}>
                             <View style={[cs.fColumn, cs.fAlCenter, cs.spaceM]}>
                                 <Text style={[cs.subTitle, cs.colorDark, cs.txtCenter, { maxWidth: 218 }]}>Другие специалисты нашей клиники</Text>
                                 <Text style={[cs.text, cs.txtCenter]}>Приём пациентов ведут высококвалифицированные врачи, за плечами которых длительная практика и широкие знания в своей сфере.</Text>
                             </View>
-                            <View>
-                                <View style={[{ overflow: "hidden", borderRadius: 15 }]}>
-                                    <ImageBackground style={[{ width: "100%", height: 350 }]} resizeMode={"cover"}
-                                        source={DoctorImage} />
+                            <View style={[cs.fColumn, cs.spaceXL]}>
+                                <View style={[cs.fColumn, cs.spaceS]}>
+                                    <View>
+                                        <DoctorItem image={DoctorImage} />
+                                    </View>
+                                    <View style={[cs.fAlCenter]}>
+                                        <View style={[cs.fRowBetw, cs.fAlCenter, cs.spaceXL, { maxWidth: 154 }]}>
+                                            <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
+                                                <ArrowBlockLeft width={32} height={32} />
+                                            </TouchableOpacity>
+                                            <Text style={[cs.text]}>1/30</Text>
+                                            <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
+                                                <ArrowBlockRight width={32} height={32} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+
                                 </View>
+                                <View style={[cs.fAlCenter]}>
+                                    <TouchableOpacity style={{ maxWidth: 154 }}>
+                                        <Text style={[cs.blueLink, cs.fSemi]}>Смотреть всех врачей</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+
                             </View>
                         </View>
 

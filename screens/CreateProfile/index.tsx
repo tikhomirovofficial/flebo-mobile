@@ -15,13 +15,14 @@ import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { HistoryItem } from '../../components/HistoryItem';
+import { SelectField } from '../../components/SelectField';
 
 
 export const CreateProfile: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
 
     return (
-        <ScrollView>
+        <ScrollView nestedScrollEnabled>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
                     <Text style={[cs.title]}>Личные данные</Text>
@@ -33,7 +34,7 @@ export const CreateProfile: FC<NavProps> = ({ navigation }) => {
                             <InputField placeholder='Фамилия' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Отчество' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Город' val={""} onChange={(val) => { }} />
+                            <SelectField current={1} fieldTextKey={"name"} items={[{ id: 1, name: "Москва" }]} selectHandler={() => { }} val={''} placeholder={"Выберите город"} onChange={(val) => { }} />
                             <InputField placeholder='Пол' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Придумайте пароль' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Подтверждение пароля' val={""} onChange={(val) => { }} />
