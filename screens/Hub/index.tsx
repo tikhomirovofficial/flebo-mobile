@@ -10,42 +10,48 @@ import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
 import { handleLoginForm } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
+import ProfileEditModal from '../../components/Modals/ProfileEditModal';
 
 export const Hub: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
 
     return (
-        <ScrollView>
-            <MainContainer>
-                <AppContainer style={{ height: "100%" }}>
-                    <View style={[cs.flexOne, cs.fColumnBetw]}>
-                        <View style={[cs.fColumnBetw, { flex: 1 }]}>
-                            <View style={[cs.fColumn, cs.spaceXL]}>
-                                <Text style={[cs.title]}>Здравствуйте, Артём!</Text>
-                                <View style={[cs.fColumn, cs.spaceM]}>
-                                    <MainButton style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
-                                        <PenDrawedUnderIcon height={18} width={18} />
-                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fMed]}>Личные данные</Text>
-                                    </MainButton>
-                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
-                                        <HistoryIcon />
-                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>История посещения</Text>
-                                    </MainButton>
-                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
-                                        <PlanIcon />
-                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>План лечения</Text>
-                                    </MainButton>
-                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
-                                        <DocsIcon />
-                                        <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>Документы</Text>
-                                    </MainButton>
+        <>
+            <ScrollView>
+                
+                <MainContainer>
+                    <AppContainer style={{ height: "100%" }}>
+                        <View style={[cs.flexOne, cs.fColumnBetw]}>
+                            <View style={[cs.fColumnBetw, { flex: 1 }]}>
+                                <View style={[cs.fColumn, cs.spaceXL]}>
+                                    <Text style={[cs.title]}>Здравствуйте, Артём!</Text>
+                                    <View style={[cs.fColumn, cs.spaceM]}>
+                                        <MainButton style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                            <PenDrawedUnderIcon height={18} width={18} />
+                                            <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fMed]}>Личные данные</Text>
+                                        </MainButton>
+                                        <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                            <HistoryIcon />
+                                            <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>История посещения</Text>
+                                        </MainButton>
+                                        <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                            <PlanIcon />
+                                            <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>План лечения</Text>
+                                        </MainButton>
+                                        <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                            <DocsIcon />
+                                            <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>Документы</Text>
+                                        </MainButton>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                    </View>
-                </AppContainer>
-            </MainContainer>
-        </ScrollView>
+                    </AppContainer>
+                </MainContainer>
+            </ScrollView>
+            {true ? <ProfileEditModal/> : false}
+        </>
+
     )
 }
 

@@ -27,7 +27,7 @@ const MainTabs: FC<NavProps> = ({ navigation }) => {
     return (
         <>
             <Tab.Navigator
-                initialRouteName={"main"}
+                initialRouteName={"profile"}
                 tabBar={(props) => <AppTab key={props.state.index} {...props} />}
                 sceneContainerStyle={[styles.main, { backgroundColor: "white" }]}
                 screenOptions={{ headerShown: false, unmountOnBlur: true }}>
@@ -47,7 +47,7 @@ const AppNavigator = () => {
     return (
         <NavigationContainer>
             <View style={[styles.main]}>
-                <Stack.Navigator initialRouteName={"create_profile"}
+                <Stack.Navigator initialRouteName={"home"}
                     screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                     <Stack.Screen name="login" component={Login} />
                     <Stack.Screen name="register" component={Register} />
