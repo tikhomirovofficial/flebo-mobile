@@ -12,7 +12,6 @@ export type SelectFieldProps = {
     isFocused?: boolean
     placeholder?: string
     val: string,
-    onChange: (val: string, unmasked?: string) => void,
     selectHandler: (val: number) => void,
 
 }
@@ -24,32 +23,39 @@ export const SelectField: FC<SelectFieldProps> = ({
     fieldTextKey,
     isFocused,
     idInput,
-    onChange,
     selectHandler
 }) => {
-    const [selected, setSelected] = useState<number>((current != undefined && current != -1 ? current : -1))
     const [focused, setFocused] = useState(isFocused || false)
+
+    const handleFocused = () => setFocused(!focused)
 
     return (
         <View>
-            <TouchableOpacity style={[styles.selectField, cs.fRowBetw, (val.length > 0 ? cs.filledBorderColor : null), (focused ? cs.focusedInput : null)]}>
+            <TouchableOpacity onPress={handleFocused} style={[styles.selectField, cs.fRowBetw, (val.length > 0 ? cs.filledBorderColor : null), (focused ? cs.focusedInput : null)]}>
                 <TextInput
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
                     readOnly
                     value={val}
-                    style={[cs.inputText, cs.fzM, cs.flexOne]}
+                    style={[cs.inputText, cs.colorDark, cs.fzM, cs.flexOne]}
                     nativeID={idInput}
-                    onChangeText={onChange}
                     accessibilityLabelledBy={idInput}
                     placeholder={placeholder}
                 />
                 <View style={[cs.fCenterCol]}>
                     <DropDownIcon height={6} width={12} />
                 </View>
-
             </TouchableOpacity>
-            <DropDown fieldTextKey={fieldTextKey} items={items} current={selected} selectHandler={selectHandler} placeholder={placeholder} />
+            {
+                focused ?
+                    <DropDown
+                        handleFocused={handleFocused}
+                        fieldTextKey={fieldTextKey}
+                        items={items}
+                        current={current}
+                        selectHandler={selectHandler}
+                        placeholder={placeholder} /> :
+                    null
+            }
+
         </View >
 
     )

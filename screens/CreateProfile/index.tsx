@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
@@ -17,9 +17,10 @@ import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { HistoryItem } from '../../components/HistoryItem';
 import { SelectField } from '../../components/SelectField';
 
-
+const data = [{ id: 1, name: "Москва" }, { id: 52, name: "Этот город наш" }]
 export const CreateProfile: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    const [city, setCity] = useState(0)
 
     return (
         <ScrollView nestedScrollEnabled>
@@ -34,7 +35,14 @@ export const CreateProfile: FC<NavProps> = ({ navigation }) => {
                             <InputField placeholder='Фамилия' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Отчество' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
-                            <SelectField current={1} fieldTextKey={"name"} items={[{ id: 1, name: "Москва" }]} selectHandler={() => { }} val={''} placeholder={"Выберите город"} onChange={(val) => { }} />
+                            <SelectField
+                                current={city}
+                                fieldTextKey={"name"}
+                                items={data}
+                                selectHandler={(val) => setCity(val)}
+                                val={data.find(item => item.id === city)?.name || ""}
+                                placeholder={"Выберите город"}
+                            />
                             <InputField placeholder='Пол' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Придумайте пароль' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Подтверждение пароля' val={""} onChange={(val) => { }} />

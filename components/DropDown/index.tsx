@@ -4,13 +4,19 @@ import { cs } from '../../common/styles'
 import { DropDownIcon } from '../../icons'
 import { SelectFieldProps } from '../SelectField'
 
-type DropDownProps = Pick<SelectFieldProps, "current" | "fieldTextKey" | "selectHandler" | "placeholder" | "items">
+type DropDownProps = Pick<SelectFieldProps, "current" | "fieldTextKey" | "selectHandler" | "placeholder" | "items"> & {
+    handleFocused: () => void
+}
 
-export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey, placeholder, selectHandler, items }) => {
+export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey, placeholder, selectHandler, items, handleFocused }) => {
     const fieldKey = fieldTextKey as string
+    const handleSelect = (val: number) => {
+        selectHandler(val)
+        handleFocused()
+    }
     return (
         <View style={[cs.pAbs, styles.dropDownBlock]}>
-            <TouchableOpacity style={[cs.fRowBetw, { paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: "rgba(69, 69, 69, 0.4)" }]}>
+            <TouchableOpacity onPress={handleFocused} style={[cs.fRowBetw, { paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: "rgba(69, 69, 69, 0.4)" }]}>
                 <Text style={[cs.inputText, cs.fzM, cs.colorDark]}>{placeholder}</Text>
                 <View style={[cs.fCenterCol]}>
                     <DropDownIcon height={6} width={12} />
@@ -20,7 +26,7 @@ export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey, placeholder
             <FlatList showsVerticalScrollIndicator={false} data={items} renderItem={({ item }) => {
                 const untypedItem = item as any
                 return (
-                    <TouchableOpacity onPress={item.id === current ? undefined : () => selectHandler(item.id)} style={{ paddingVertical: 6 }}>
+                    <TouchableOpacity onPress={item.id === current ? undefined : () => handleSelect(item.id)} style={{ paddingVertical: 6 }}>
                         <Text style={[cs.inputText, cs.fzM, (item.id === current ? { color: cs.blueLink.color } : cs.colorDark)]}>{untypedItem[fieldKey] || "Значение"}</Text>
                     </TouchableOpacity>
                 )
