@@ -47,7 +47,7 @@ const AppNavigator = () => {
     return (
         <NavigationContainer>
             <View style={[styles.main]}>
-                <Stack.Navigator initialRouteName={"home"}
+                <Stack.Navigator initialRouteName={"doctor"}
                     screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                     <Stack.Screen name="login" component={Login} />
                     <Stack.Screen name="register" component={Register} />

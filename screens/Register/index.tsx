@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
 import { NavProps } from '../../types/common.types';
 import { handleRegisterForm } from '../../app/features/auth/registerSlice';
 import { MainContainer } from '../../components/MainContainer';
+import { BlueLink } from '../../components/BlueLink';
 
 export const Register: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
@@ -33,9 +34,9 @@ export const Register: FC<NavProps> = ({ navigation }) => {
                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                                     </MainButton>
                                 </View>
-                                <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter,]}>
+                                <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter, cs.fAlCenter]}>
                                     <Text style={[cs.text]}>Уже зарегистрированы?</Text>
-                                    <Text onPress={() => navigation.navigate("login")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Войдите</Text>
+                                    <BlueLink title={"Войдите"} onPress={() => navigation.navigate("login")} />
                                 </View>
                             </View>
                         </View>

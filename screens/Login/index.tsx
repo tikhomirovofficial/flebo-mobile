@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
 import { handleLoginForm } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
+import { BlueLink } from '../../components/BlueLink';
 
 export const Login: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
@@ -32,16 +33,16 @@ export const Login: FC<NavProps> = ({ navigation }) => {
                                             <InputField hideValue placeholder='Пароль' val={data.password} onChange={(val) => dispatch(handleLoginForm({ key: "password", val }))} />
                                         </View>
                                         <View style={{ alignItems: "flex-end" }}>
-                                            <Text onPress={() => navigation.navigate("restore_password")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Забыли пароль?</Text>
+                                            <BlueLink title={"Забыли пароль?"} onPress={() => navigation.navigate("restore_password")} />
                                         </View>
                                     </View>
                                     <MainButton handlePress={() => { }}>
                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                                     </MainButton>
                                 </View>
-                                <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter,]}>
+                                <View style={[cs.dF, cs.fRow, cs.spaceXS, cs.jcCenter, cs.fAlCenter]}>
                                     <Text style={[cs.text]}>Нет аккаунта?</Text>
-                                    <Text onPress={() => navigation.navigate("register")} style={[cs.fzS, cs.blueLink, cs.fSemi]}>Зарегистрируйтесь</Text>
+                                    <BlueLink title={"Зарегистрирутейсь"} onPress={() => navigation.navigate("register")} />
                                 </View>
                             </View>
                         </View>

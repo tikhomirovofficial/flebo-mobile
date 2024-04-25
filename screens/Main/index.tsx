@@ -13,6 +13,7 @@ import { MainContainer } from '../../components/MainContainer';
 import { ServiceItem } from '../../components/ServiceItem';
 import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
+import { BlueLink } from '../../components/BlueLink';
 
 const UziServiceImage = require('../../assets/images/services/uzi.jpg')
 const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
@@ -69,7 +70,14 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                     </AppContainer>
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
                         <Text style={[cs.subTitle]}>Врачи</Text>
-                        <DoctorItem image={DoctorImage} />
+
+                        <View>
+                            <DoctorItem image={DoctorImage} />
+                        </View>
+                        <View style={[cs.fCenterRow]}>
+                            <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
+                        </View>
+
                     </AppContainer>
                 </View>
             </MainContainer >

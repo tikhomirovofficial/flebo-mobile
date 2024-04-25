@@ -11,14 +11,16 @@ import { handleLoginForm } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
 import ProfileEditModal from '../../components/Modals/ProfileEditModal';
+import { handleProfileEditModal } from '../../app/features/modals/modalsSlice';
 
 export const Hub: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    const { profileEditModal } = useAppSelector(state => state.modals)
 
     return (
         <>
             <ScrollView>
-                
+
                 <MainContainer>
                     <AppContainer style={{ height: "100%" }}>
                         <View style={[cs.flexOne, cs.fColumnBetw]}>
@@ -26,7 +28,7 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                                 <View style={[cs.fColumn, cs.spaceXL]}>
                                     <Text style={[cs.title]}>Здравствуйте, Артём!</Text>
                                     <View style={[cs.fColumn, cs.spaceM]}>
-                                        <MainButton style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                        <MainButton style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => dispatch(handleProfileEditModal())}>
                                             <PenDrawedUnderIcon height={18} width={18} />
                                             <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fMed]}>Личные данные</Text>
                                         </MainButton>
@@ -49,7 +51,7 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                     </AppContainer>
                 </MainContainer>
             </ScrollView>
-            {true ? <ProfileEditModal/> : false}
+            {profileEditModal ? <ProfileEditModal /> : false}
         </>
 
     )

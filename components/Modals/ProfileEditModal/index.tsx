@@ -3,25 +3,24 @@ import { useAppDispatch, useAppSelector } from "../../../app/base/hooks";
 import { Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback } from "react-native";
 
 import { cs } from "../../../common/styles";
-import { fs } from "../../../navigation/AppNavigator";
 
 import { InputField } from '../../InputField';
 import { containerStyles } from '../../AppContainer';
 import WhiteBordered from '../../WhiteBordered';
 import { ModalShadow } from '../../ModalShadow';
-
-const tempOpened = true
+import MainButton from '../../MainButton';
+import { handleProfileEditModal } from '../../../app/features/modals/modalsSlice';
 
 const ProfileEditModal = () => {
     const dispatch = useAppDispatch()
     // const theme = useAppTheme()
-    // const { profileEditModal } = useAppSelector(state => state.modals)
+    const { profileEditModal } = useAppSelector(state => state.modals)
     // const { form, data } = useAppSelector(state => state.profile)
 
     //const formAndDataEqual = Object.keys(form).every((key) => form[key as keyof ProfileEditTextFields] === data[key as keyof ProfileData])
 
     const handleModal = () => {
-        //dispatch(handleProfileEditModal())
+        dispatch(handleProfileEditModal())
     }
 
     useEffect(() => {
@@ -31,22 +30,38 @@ const ProfileEditModal = () => {
     }, [])
 
     return (
-        <Modal style={{ position: "relative" }} animationType={"slide"} visible={tempOpened} transparent={true}>
-            <ModalShadow show={tempOpened} />
+        <Modal style={{ position: "relative" }} animationType={"slide"} visible={profileEditModal} transparent={true}>
+            <ModalShadow show={profileEditModal} />
             <WhiteBordered isModal style={{ paddingBottom: 20, position: "relative" }}>
                 <View style={[cs.flexOne, styles.profileDataBlock, cs.fColumnBetw, cs.spaceXXL]}>
                     <View style={[cs.fRowBetw, cs.fAlCenter]}>
-                        <Text onPress={handleModal}
-                            style={[cs.fzM, cs.modalCloseText]}>Закрыть</Text>
+                        <TouchableOpacity onPress={handleModal}>
+                            <Text
+                                style={[cs.fzM, cs.fSemi, cs.blueLink]}>Закрыть</Text>
+                        </TouchableOpacity>
                         <View style={[cs.fAlCenter]}>
-                            <Text style={[cs.fzM, cs.colorDark, cs.fzM, cs.colorDark]}>Личные данные</Text>
+                            <Text style={[cs.fzM, { fontFamily: cs.title.fontFamily, fontSize: 24 }]}>Личные данные</Text>
                         </View>
                         <View style={{ flex: 0.4 }}></View>
                     </View>
                     <View style={[styles.profileDataContent, cs.spaceM]}>
-                        <ScrollView>
 
-                        </ScrollView>
+                        <View style={[cs.fColumn, cs.spaceM]}>
+                            <Text style={[cs.fzS, cs.text]}>Измените личные данные</Text>
+                            <InputField placeholder='Имя' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='Фамилия' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='Отчество' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
+
+                            <InputField placeholder='Придумайте пароль' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='Подтверждение пароля' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='E-mail' val={""} onChange={(val) => { }} />
+                            <MainButton handlePress={() => { }}>
+                                <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
+                            </MainButton>
+                        </View>
+
 
                         {/* <ButtonYellow isFilled={true} disabled={formAndDataEqual} handlePress={() => { }}>
                             <Text style={[cs.fzM, cs.yellowBtnText, cs.colorBlack]}>Сохранить</Text>

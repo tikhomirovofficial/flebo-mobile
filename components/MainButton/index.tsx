@@ -20,7 +20,7 @@ const MainButton: FC<ButtonYellowProps> = ({ children, handlePress, style, isFil
     }
     if (isFilled) {
         return (
-            <TouchableOpacity style={[cs.mainBtn, cs.fCenterRow, {backgroundColor: "#0BA0B5"}, style]} onPress={handlePress}>
+            <TouchableOpacity style={[cs.mainBtn, cs.fCenterRow, { backgroundColor: "#0BA0B5" }, style]} onPress={handlePress}>
                 {children}
             </TouchableOpacity>
         );

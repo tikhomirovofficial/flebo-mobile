@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useState } from 'react';
-import { Dimensions, ScrollView, StyleSheet, View, ViewStyle, Text, RefreshControl } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View, ViewStyle, Text, RefreshControl, TouchableWithoutFeedback } from "react-native";
 import AppContainer from "../../components/AppContainer";
 import { cs } from "../../common/styles";
 import { useAppSelector } from '../../app/base/hooks';
@@ -26,17 +26,24 @@ const WhiteBorderedLayout: FC<WhiteBorderedProps> = ({
     const offsetViaPaddingTop = modalLevel > 1 ? (80 + (modalLevel * 12)) : 80
 
     return (
+
         <View style={[styles.baseView, { backgroundColor: "rgba(0, 0, 0, 0.0)" }]}>
-            <View style={[cs.flexOne, styles.scrollContainer, { backgroundColor: "transparent" }]}>
-                <View style={[styles.containerWrapperScroll, { paddingTop: offsetViaPaddingTop }]}>
-                    {topContent}
-                    <View style={[styles.whiteContainer, style]}>
-                        <AppContainer style={{ flex: 1 }}>
-                            {children}
-                        </AppContainer>
+            {/* <TouchableWithoutFeedback style={[cs.pAbs, { top: 0, left: 0, zIndex: 1 }]} onPress={() => alert("da")}>
+                <View style={[{ backgroundColor: "blue", width: "100%", height: "100%" }]}></View>
+            </TouchableWithoutFeedback> */}
+            <ScrollView >
+                <View style={[cs.flexOne, cs.pRel, styles.scrollContainer, { backgroundColor: "transparent" }]}>
+                    <View style={[styles.containerWrapperScroll, { paddingTop: offsetViaPaddingTop }]}>
+                        {topContent}
+                        <View style={[styles.whiteContainer, style]}>
+                            <AppContainer style={{ flex: 1 }}>
+                                {children}
+                            </AppContainer>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
+
         </View>
     );
 };
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
 
     baseView: {
         minHeight: "100%",
-        backgroundColor: "black"
+        position: "relative",
     },
     containerWrapper: {
         flex: 1,
@@ -66,6 +73,7 @@ const styles = StyleSheet.create({
     whiteContainer: {
         backgroundColor: "white",
         shadowColor: "black",
+        paddingTop: 22,
         shadowOffset: {
             width: 0,
             height: 20,

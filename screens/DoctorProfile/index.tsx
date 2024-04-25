@@ -15,6 +15,7 @@ import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { HistoryItem } from '../../components/HistoryItem';
+import { BlueLink } from '../../components/BlueLink';
 const DoctorImage = require('../../assets/images/doctor.jpg')
 
 export const DoctorProfile: FC<NavProps> = ({ navigation }) => {
@@ -103,17 +104,11 @@ export const DoctorProfile: FC<NavProps> = ({ navigation }) => {
 
                                 </View>
                                 <View style={[cs.fAlCenter]}>
-                                    <TouchableOpacity style={{ maxWidth: 154 }}>
-                                        <Text style={[cs.blueLink, cs.fSemi]}>Смотреть всех врачей</Text>
-                                    </TouchableOpacity>
+                                    <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
                                 </View>
-
-
                             </View>
                         </View>
-
                     </View>
-
                 </AppContainer>
             </MainContainer >
         </ScrollView >

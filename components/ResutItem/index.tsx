@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { View, ImageBackground, Text, TouchableOpacity } from 'react-native'
 import { cs } from '../../common/styles'
+import { BlueLink } from '../BlueLink'
 
 type ResultItemProps = {
     full_name: string,
@@ -13,9 +14,7 @@ export const ResultItem: FC<ResultItemProps> = ({ full_name, date }) => {
             <Text style={[cs.text, cs.fMed, cs.fzM, { width: "80%" }]}>{full_name} — Результаты анализов</Text>
             <View style={[cs.fRowBetw]}>
                 <Text style={[cs.colorCaption, cs.fReg, cs.fzS]}>от {date}</Text>
-                <TouchableOpacity>
-                    <Text style={[cs.fzS, cs.blueLink, cs.fSemi]}>Смотреть</Text>
-                </TouchableOpacity>
+                <BlueLink onPress={() => { }} title={"Смотреть"} />
 
             </View>
         </TouchableOpacity>
