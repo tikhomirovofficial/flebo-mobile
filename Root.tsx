@@ -7,11 +7,13 @@ import { cs } from './common/styles';
 
 export const Root = () => {
     const [fontsLoaded] = useFonts();
+    
     if (fontsLoaded) {
         return (
             <>
                 <StatusBar style={"auto"} />
                 <AppNavigator />
+                
             </>
         )
     }

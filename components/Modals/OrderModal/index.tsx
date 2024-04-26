@@ -9,10 +9,9 @@ import { containerStyles } from '../../AppContainer';
 import WhiteBordered from '../../WhiteBordered';
 import { ModalShadow } from '../../ModalShadow';
 import MainButton from '../../MainButton';
-import { handleProfileEditModal } from '../../../app/features/modals/modalsSlice';
+import { handleOrderModal, handleProfileEditModal } from '../../../app/features/modals/modalsSlice';
 import { SelectField } from '../../SelectField';
 
-const temp = true
 const sexes = [
     {
         id: 1,
@@ -50,19 +49,19 @@ const sexes = [
         id: 252,
         name: "Женский"
     },
-    
+
 ]
 const OrderModal = () => {
     const dispatch = useAppDispatch()
     // const theme = useAppTheme()
-    const { profileEditModal } = useAppSelector(state => state.modals)
+    const { orderModal } = useAppSelector(state => state.modals)
     const [sex, setSex] = useState(0)
     // const { form, data } = useAppSelector(state => state.profile)
 
     //const formAndDataEqual = Object.keys(form).every((key) => form[key as keyof ProfileEditTextFields] === data[key as keyof ProfileData])
 
     const handleModal = () => {
-        //dispatch(handleProfileEditModal())
+        dispatch(handleOrderModal())
     }
 
     useEffect(() => {
@@ -72,12 +71,12 @@ const OrderModal = () => {
     }, [])
 
     return (
-        <Modal style={{ position: "relative" }} animationType={"slide"} visible={temp} transparent={true}>
+        <Modal style={{ position: "relative" }} animationType={"slide"} visible={orderModal} transparent={true}>
             <TouchableOpacity onPress={() => alert("SAS")} style={[{ position: "absolute", height: "100%", width: "100%", top: 0, left: 0, }]}>
-                <ModalShadow show={temp} />
+                <ModalShadow show={orderModal} />
             </TouchableOpacity>
 
-            <WhiteBordered onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative" }}>
+            <WhiteBordered likeBottomSheet={{ maxHeight: 500 }} onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative" }}>
                 <View style={[cs.flexOne, styles.profileDataBlock, cs.fColumnBetw, cs.spaceXXL]}>
                     <View style={[cs.fRowBetw, cs.fAlCenter]}>
                         <TouchableOpacity onPress={handleModal}>
@@ -85,7 +84,7 @@ const OrderModal = () => {
                                 style={[cs.fzM, cs.fSemi, cs.blueLink]}>Закрыть</Text>
                         </TouchableOpacity>
                         <View style={[cs.fAlCenter]}>
-                            <Text style={[cs.fzM, { fontFamily: cs.title.fontFamily, fontSize: 24 }]}>Личные данные</Text>
+                            <Text style={[cs.fzM, { fontFamily: cs.title.fontFamily, fontSize: 24 }]}>Запись ко врачу</Text>
                         </View>
                         <View style={{ flex: 0.4 }}></View>
                     </View>

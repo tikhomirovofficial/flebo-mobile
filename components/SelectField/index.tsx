@@ -79,22 +79,5 @@ const styles = StyleSheet.create({
         borderCurve: "continuous",
         borderWidth: 1,
         borderColor: "#A9A9A9"
-    },
-    dropDownBlock: {
-        top: 0,
-        left: 0,
-        flex: 1,
-        zIndex: 1000,
-        width: "100%",
-        maxHeight: 250,
-        paddingHorizontal: 28,
-        paddingTop: 20,
-        backgroundColor: "white",
-        borderStyle: "solid",
-        borderRadius: 18,
-        borderCurve: "continuous",
-        borderWidth: 1,
-        overflow: "hidden",
-        borderColor: "#A9A9A9"
     }
 })

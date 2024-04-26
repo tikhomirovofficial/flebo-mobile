@@ -21,7 +21,6 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
     return (
         <>
             <ScrollView>
-
                 <MainContainer>
                     <AppContainer style={{ height: "100%" }}>
                         <View style={[cs.flexOne, cs.fColumnBetw]}>
@@ -52,8 +51,7 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                     </AppContainer>
                 </MainContainer>
             </ScrollView>
-            {!profileEditModal ? <ProfileEditModal /> : false}
-            {!true ? <OrderModal /> : false}
+            {profileEditModal ? <ProfileEditModal /> : false}
         </>
 
     )

@@ -25,6 +25,7 @@ const WhiteBorderedLayout: FC<WhiteBorderedProps> = ({
     style,
     onOutsideClick,
     modalLevel = 1,
+    likeBottomSheet,
 }) => {
     const offsetViaPaddingTop = modalLevel > 1 ? (80 + (modalLevel * 12)) : 80
 
@@ -32,37 +33,39 @@ const WhiteBorderedLayout: FC<WhiteBorderedProps> = ({
         <TouchableWithoutFeedback onPress={onOutsideClick}>
             <View style={[styles.baseView, { backgroundColor: "rgba(0, 0, 0, 0.0)" }]}>
                 {/* <TouchableWithoutFeedback style={[cs.pAbs, { top: 0, left: 0, zIndex: 1 }]} onPress={() => alert("da")}>
-                <View style={[{ backgroundColor: "blue", width: "100%", height: "100%" }]}></View>
-            </TouchableWithoutFeedback> */}
-                {/* <ScrollView >
-                    <View style={[cs.flexOne, cs.pRel, styles.scrollContainer, { backgroundColor: "transparent" }]}>
-                        <View style={[styles.containerWrapperScroll, { paddingTop: offsetViaPaddingTop }]}>
-                            {topContent}
-                            <TouchableWithoutFeedback onPress={e => e.stopPropagation()}>
-                                <View style={[styles.whiteContainer, style]}>
-                                    <AppContainer style={{ flex: 1 }}>
-                                        {children}
-                                    </AppContainer>
-                                </View>
-                            </TouchableWithoutFeedback>
+                    <View style={[{ backgroundColor: "blue", width: "100%", height: "100%" }]}></View>
+                </TouchableWithoutFeedback> */}
+                {
+                    likeBottomSheet ?
+                        <View style={[cs.flexOne, cs.pRel, { justifyContent: "flex-end" }]}>
+                            <View style={[styles.containerWrapper, { maxHeight: likeBottomSheet.maxHeight }]}>
+                                {topContent}
+                                <TouchableWithoutFeedback onPress={e => e.stopPropagation()}>
+                                    <View style={[styles.whiteContainer, style]}>
+                                        <AppContainer style={{ flex: 1 }}>
+                                            {children}
+                                        </AppContainer>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                        </View>
-                    </View>
-                </ScrollView> */}
-                <View style={[cs.flexOne, cs.pRel, { backgroundColor: "blue", justifyContent: "flex-end" }]}>
-                    <View style={[styles.containerWrapper]}>
-                        {topContent}
-                        <TouchableWithoutFeedback onPress={e => e.stopPropagation()}>
-                            <View style={[styles.whiteContainer, style]}>
-                                <AppContainer style={{ flex: 1 }}>
-                                    {children}
-                                </AppContainer>
                             </View>
-                        </TouchableWithoutFeedback>
-
-                    </View>
-                </View>
-
+                        </View>
+                        :
+                        <ScrollView >
+                            <View style={[cs.flexOne, cs.pRel, styles.scrollContainer]}>
+                                <View style={[styles.containerWrapperScroll, { paddingTop: offsetViaPaddingTop }]}>
+                                    {topContent}
+                                    <TouchableWithoutFeedback onPress={e => e.stopPropagation()}>
+                                        <View style={[styles.whiteContainer, style]}>
+                                            <AppContainer style={{ flex: 1 }}>
+                                                {children}
+                                            </AppContainer>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+                                </View>
+                            </View>
+                        </ScrollView>
+                }
             </View>
         </TouchableWithoutFeedback >
 
@@ -91,7 +94,6 @@ const styles = StyleSheet.create({
     containerWrapper: {
         display: "flex",
         gap: 16,
-        maxHeight: 500,
         flex: 1,
         justifyContent: "flex-end",
         flexDirection: "column"

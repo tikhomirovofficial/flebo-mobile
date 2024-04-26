@@ -18,6 +18,7 @@ import { History } from '../screens/History';
 import { DoctorProfile } from '../screens/DoctorProfile';
 import { CreateProfile } from '../screens/CreateProfile';
 import { EventProvider } from 'react-native-outside-press';
+import OrderModal from '../components/Modals/OrderModal';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -45,6 +46,7 @@ const MainTabs: FC<NavProps> = ({ navigation }) => {
 
 const AppNavigator = () => {
     const dispatch = useAppDispatch()
+    const { orderModal } = useAppSelector(state => state.modals)
     return (
         <NavigationContainer>
             <EventProvider>
@@ -61,6 +63,7 @@ const AppNavigator = () => {
                         <Stack.Screen name="home" component={MainTabs} />
                     </Stack.Navigator>
                 </View>
+                {orderModal ? <OrderModal /> : false}
             </EventProvider>
 
         </NavigationContainer>
