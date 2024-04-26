@@ -12,6 +12,7 @@ import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
 import ProfileEditModal from '../../components/Modals/ProfileEditModal';
 import { handleProfileEditModal } from '../../app/features/modals/modalsSlice';
+import OrderModal from '../../components/Modals/OrderModal';
 
 export const Hub: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
@@ -51,7 +52,8 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                     </AppContainer>
                 </MainContainer>
             </ScrollView>
-            {profileEditModal ? <ProfileEditModal /> : false}
+            {!profileEditModal ? <ProfileEditModal /> : false}
+            {!true ? <OrderModal /> : false}
         </>
 
     )

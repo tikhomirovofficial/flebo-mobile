@@ -17,6 +17,7 @@ import { Doctors } from '../screens/Doctors';
 import { History } from '../screens/History';
 import { DoctorProfile } from '../screens/DoctorProfile';
 import { CreateProfile } from '../screens/CreateProfile';
+import { EventProvider } from 'react-native-outside-press';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -46,19 +47,22 @@ const AppNavigator = () => {
     const dispatch = useAppDispatch()
     return (
         <NavigationContainer>
-            <View style={[styles.main]}>
-                <Stack.Navigator initialRouteName={"doctor"}
-                    screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
-                    <Stack.Screen name="login" component={Login} />
-                    <Stack.Screen name="register" component={Register} />
-                    <Stack.Screen name="create_profile" component={CreateProfile} />
-                    <Stack.Screen name="restore_password" component={RestorePassword} />
-                    <Stack.Screen name="documents" component={Documents} />
-                    <Stack.Screen name="history" component={History} />
-                    <Stack.Screen name="doctor" component={DoctorProfile} />
-                    <Stack.Screen name="home" component={MainTabs} />
-                </Stack.Navigator>
-            </View>
+            <EventProvider>
+                <View style={[styles.main]}>
+                    <Stack.Navigator initialRouteName={"home"}
+                        screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                        <Stack.Screen name="login" component={Login} />
+                        <Stack.Screen name="register" component={Register} />
+                        <Stack.Screen name="create_profile" component={CreateProfile} />
+                        <Stack.Screen name="restore_password" component={RestorePassword} />
+                        <Stack.Screen name="documents" component={Documents} />
+                        <Stack.Screen name="history" component={History} />
+                        <Stack.Screen name="doctor" component={DoctorProfile} />
+                        <Stack.Screen name="home" component={MainTabs} />
+                    </Stack.Navigator>
+                </View>
+            </EventProvider>
+
         </NavigationContainer>
     )
 };

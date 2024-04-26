@@ -30,10 +30,10 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <View style={[cs.fColumn, cs.spaceM]}>
                                 <Text style={[cs.title]}>+79125303036</Text>
-                                <View style={[styles.search, cs.bgGray, cs.fRow, cs.fAlCenter, cs.spaceS, cs.mainRadius]}>
+                                {/* <View style={[styles.search, cs.bgGray, cs.fRow, cs.fAlCenter, cs.spaceS, cs.mainRadius]}>
                                     <SearchIcon />
                                     <TextInput style={[cs.fzM, cs.fReg, cs.flexOne, { height: "100%" }]} placeholder={"Поиск"} />
-                                </View>
+                                </View> */}
                             </View>
                             <View style={[cs.fColumn, cs.spaceS]}>
                                 <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>

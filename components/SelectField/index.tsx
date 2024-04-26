@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react'
-import { View, StyleSheet, TextInput, KeyboardType, Text, TouchableOpacity, FlatList, ScrollView } from 'react-native'
+import React, { FC, useRef, useState } from 'react'
+import { View, StyleSheet, TextInput, KeyboardType, Text, TouchableOpacity, FlatList, ScrollView, TouchableWithoutFeedback, TouchableWithoutFeedbackComponent } from 'react-native'
 import { cs } from '../../common/styles'
 import { DropDownIcon } from '../../icons'
 import { DropDown } from '../DropDown'
@@ -28,35 +28,45 @@ export const SelectField: FC<SelectFieldProps> = ({
     const [focused, setFocused] = useState(isFocused || false)
 
     const handleFocused = () => setFocused(!focused)
+    const ref = useRef<any>(null);
+
+    const handleClickOutside = (event: any) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            console.log('Clicked outside');
+        }
+    };
 
     return (
-        <View>
-            <TouchableOpacity onPress={handleFocused} style={[styles.selectField, cs.fRowBetw, (val.length > 0 ? cs.filledBorderColor : null), (focused ? cs.focusedInput : null)]}>
-                <TextInput
-                    readOnly
-                    value={val}
-                    style={[cs.inputText, cs.colorDark, cs.fzM, cs.flexOne]}
-                    nativeID={idInput}
-                    accessibilityLabelledBy={idInput}
-                    placeholder={placeholder}
-                />
-                <View style={[cs.fCenterCol]}>
-                    <DropDownIcon height={6} width={12} />
-                </View>
-            </TouchableOpacity>
-            {
-                focused ?
-                    <DropDown
-                        handleFocused={handleFocused}
-                        fieldTextKey={fieldTextKey}
-                        items={items}
-                        current={current}
-                        selectHandler={selectHandler}
-                        placeholder={placeholder} /> :
-                    null
-            }
+        <TouchableWithoutFeedback onPress={handleClickOutside}>
+            <View style={{ zIndex: focused ? 20 : 0 }}>
+                <TouchableOpacity onPress={handleFocused} style={[styles.selectField, cs.fRowBetw, (val.length > 0 ? cs.filledBorderColor : null), (focused ? cs.focusedInput : null)]}>
+                    <TextInput
+                        readOnly
+                        value={val}
+                        style={[cs.inputText, cs.colorDark, cs.fzM, cs.flexOne]}
+                        nativeID={idInput}
+                        accessibilityLabelledBy={idInput}
+                        placeholder={placeholder}
+                    />
+                    <View style={[cs.fCenterCol]}>
+                        <DropDownIcon height={6} width={12} />
+                    </View>
+                </TouchableOpacity>
+                {
+                    focused ?
+                        <DropDown
+                            handleFocused={handleFocused}
+                            fieldTextKey={fieldTextKey}
+                            items={items}
+                            current={current}
+                            selectHandler={selectHandler}
+                            placeholder={placeholder} /> :
+                        null
+                }
 
-        </View >
+            </View >
+        </TouchableWithoutFeedback>
+
 
     )
 }
@@ -64,7 +74,6 @@ const styles = StyleSheet.create({
     selectField: {
         height: 60,
         paddingHorizontal: 28,
-        position: "relative",
         borderStyle: "solid",
         borderRadius: 18,
         borderCurve: "continuous",
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         flex: 1,
-        zIndex: 10,
+        zIndex: 1000,
         width: "100%",
         maxHeight: 250,
         paddingHorizontal: 28,

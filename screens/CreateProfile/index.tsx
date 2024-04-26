@@ -26,7 +26,36 @@ const sexes = [
     {
         id: 2,
         name: "Женский"
-    }
+    },
+    {
+        id: 21,
+        name: "Женский"
+    },
+    {
+        id: 22,
+        name: "Женский"
+    },
+    {
+        id: 23,
+        name: "Женский"
+    },
+    {
+        id: 24,
+        name: "Женский"
+    },
+    {
+        id: 35,
+        name: "Женский"
+    },
+    {
+        id: 215,
+        name: "Женский"
+    },
+    {
+        id: 252,
+        name: "Женский"
+    },
+
 ]
 
 export const CreateProfile: FC<NavProps> = ({ navigation }) => {

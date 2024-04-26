@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../../app/base/hooks";
 import { Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback } from "react-native";
 
@@ -10,17 +10,59 @@ import WhiteBordered from '../../WhiteBordered';
 import { ModalShadow } from '../../ModalShadow';
 import MainButton from '../../MainButton';
 import { handleProfileEditModal } from '../../../app/features/modals/modalsSlice';
+import { SelectField } from '../../SelectField';
 
-const ProfileEditModal = () => {
+const temp = true
+const sexes = [
+    {
+        id: 1,
+        name: "Мужской"
+    },
+    {
+        id: 2,
+        name: "Женский"
+    },
+    {
+        id: 21,
+        name: "Женский"
+    },
+    {
+        id: 22,
+        name: "Женский"
+    },
+    {
+        id: 23,
+        name: "Женский"
+    },
+    {
+        id: 24,
+        name: "Женский"
+    },
+    {
+        id: 35,
+        name: "Женский"
+    },
+    {
+        id: 215,
+        name: "Женский"
+    },
+    {
+        id: 252,
+        name: "Женский"
+    },
+    
+]
+const OrderModal = () => {
     const dispatch = useAppDispatch()
     // const theme = useAppTheme()
     const { profileEditModal } = useAppSelector(state => state.modals)
+    const [sex, setSex] = useState(0)
     // const { form, data } = useAppSelector(state => state.profile)
 
     //const formAndDataEqual = Object.keys(form).every((key) => form[key as keyof ProfileEditTextFields] === data[key as keyof ProfileData])
 
     const handleModal = () => {
-        dispatch(handleProfileEditModal())
+        //dispatch(handleProfileEditModal())
     }
 
     useEffect(() => {
@@ -30,12 +72,12 @@ const ProfileEditModal = () => {
     }, [])
 
     return (
-        <Modal style={{ position: "relative" }} animationType={"slide"} visible={profileEditModal} transparent={true}>
+        <Modal style={{ position: "relative" }} animationType={"slide"} visible={temp} transparent={true}>
             <TouchableOpacity onPress={() => alert("SAS")} style={[{ position: "absolute", height: "100%", width: "100%", top: 0, left: 0, }]}>
-                <ModalShadow show={profileEditModal} />
+                <ModalShadow show={temp} />
             </TouchableOpacity>
 
-            <WhiteBordered onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative"}}>
+            <WhiteBordered onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative" }}>
                 <View style={[cs.flexOne, styles.profileDataBlock, cs.fColumnBetw, cs.spaceXXL]}>
                     <View style={[cs.fRowBetw, cs.fAlCenter]}>
                         <TouchableOpacity onPress={handleModal}>
@@ -52,14 +94,15 @@ const ProfileEditModal = () => {
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <Text style={[cs.fzS, cs.text]}>Измените личные данные</Text>
                             <InputField placeholder='Имя' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Фамилия' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Отчество' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
+                            <SelectField
+                                current={sex}
+                                fieldTextKey={"name"}
+                                items={sexes}
+                                selectHandler={(val) => setSex(val)}
+                                val={sexes.find(item => item.id === sex)?.name || ""}
+                                placeholder={"Ваш пол"}
+                            />
 
-                            <InputField placeholder='Придумайте пароль' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Подтверждение пароля' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='E-mail' val={""} onChange={(val) => { }} />
                             <MainButton handlePress={() => { }}>
                                 <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                             </MainButton>
@@ -121,4 +164,4 @@ const styles = StyleSheet.create({
         flex: 1,
     }
 })
-export default ProfileEditModal;
+export default OrderModal;
