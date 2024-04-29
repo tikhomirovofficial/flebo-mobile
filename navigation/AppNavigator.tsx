@@ -19,12 +19,16 @@ import { DoctorProfile } from '../screens/DoctorProfile';
 import { CreateProfile } from '../screens/CreateProfile';
 import { EventProvider } from 'react-native-outside-press';
 import OrderModal from '../components/Modals/OrderModal';
+import { getProfile } from '../app/features/profile/profileSlice';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const MainTabs: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(getProfile())
+    }, [])
 
     return (
         <>
@@ -47,25 +51,43 @@ const MainTabs: FC<NavProps> = ({ navigation }) => {
 const AppNavigator = () => {
     const dispatch = useAppDispatch()
     const { orderModal } = useAppSelector(state => state.modals)
+    const { token } = useAppSelector(state => state.login)
+    const { has_profile } = useAppSelector(state => state.profile)
+
     return (
         <NavigationContainer>
             <EventProvider>
                 <View style={[styles.main]}>
-                    <Stack.Navigator initialRouteName={"home"}
-                        screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
-                        <Stack.Screen name="login" component={Login} />
-                        <Stack.Screen name="register" component={Register} />
-                        <Stack.Screen name="create_profile" component={CreateProfile} />
-                        <Stack.Screen name="restore_password" component={RestorePassword} />
-                        <Stack.Screen name="documents" component={Documents} />
-                        <Stack.Screen name="history" component={History} />
-                        <Stack.Screen name="doctor" component={DoctorProfile} />
-                        <Stack.Screen name="home" component={MainTabs} />
+                    <Stack.Navigator initialRouteName={"login"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                        {
+                            !token.valid ?
+                                <>
+                                    <Stack.Screen name="login" component={Login} />
+                                    <Stack.Screen name="restore_password" component={RestorePassword} />
+                                    <Stack.Screen name="register" component={Register} />
+
+                                </> :
+                                <>
+                                    {
+                                        has_profile === null ?
+                                            <>
+                                                <Stack.Screen name="loading" component={() => <></>} />
+                                            </> :
+                                            has_profile ?
+                                                <Stack.Screen name="home" component={MainTabs} />
+                                                :
+                                                <Stack.Screen name="create_profile" component={CreateProfile} />
+                                    }
+                                    <Stack.Screen name="documents" component={Documents} />
+                                    <Stack.Screen name="history" component={History} />
+                                    <Stack.Screen name="doctor" component={DoctorProfile} />
+
+                                </>
+                        }
                     </Stack.Navigator>
                 </View>
                 {orderModal ? <OrderModal /> : false}
             </EventProvider>
-
         </NavigationContainer>
     )
 };

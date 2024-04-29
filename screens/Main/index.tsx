@@ -21,6 +21,7 @@ const DoctorImage = require('../../assets/images/doctor.jpg')
 
 export const Main: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    const { data } = useAppSelector(state => state.profile)
 
     return (
         <ScrollView>
@@ -29,7 +30,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                     <AppContainer>
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <View style={[cs.fColumn, cs.spaceM]}>
-                                <Text style={[cs.title]}>+79125303036</Text>
+                                <Text style={[cs.title]}>+{data.phone}</Text>
                                 {/* <View style={[styles.search, cs.bgGray, cs.fRow, cs.fAlCenter, cs.spaceS, cs.mainRadius]}>
                                     <SearchIcon />
                                     <TextInput style={[cs.fzM, cs.fReg, cs.flexOne, { height: "100%" }]} placeholder={"Поиск"} />

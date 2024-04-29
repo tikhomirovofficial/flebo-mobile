@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     profileEditModal: false,
-    orderModal: !false,
+    orderModal: false,
 }
 export const ModalsSlice = createSlice({
     name: "modals",

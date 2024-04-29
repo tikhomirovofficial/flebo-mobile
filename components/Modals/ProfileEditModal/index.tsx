@@ -35,7 +35,7 @@ const ProfileEditModal = () => {
                 <ModalShadow show={profileEditModal} />
             </TouchableOpacity>
 
-            <WhiteBordered onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative"}}>
+            <WhiteBordered onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative" }}>
                 <View style={[cs.flexOne, styles.profileDataBlock, cs.fColumnBetw, cs.spaceXXL]}>
                     <View style={[cs.fRowBetw, cs.fAlCenter]}>
                         <TouchableOpacity onPress={handleModal}>

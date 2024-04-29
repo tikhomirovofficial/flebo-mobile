@@ -7,14 +7,23 @@ import { InputField } from '../../components/InputField';
 import MainButton from '../../components/MainButton';
 import { phoneMask } from '../../config/masks';
 import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
-import { handleLoginForm } from '../../app/features/auth/loginSlice';
+import { handleLoginForm, sendLogin } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
 import { BlueLink } from '../../components/BlueLink';
+import { normalizePhone } from '../../utils/forms/phone/normalizePhone';
 
 export const Login: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { data } = useAppSelector(state => state.login)
+
+    const handleSendLogin = () => {
+        dispatch(sendLogin({
+            username: normalizePhone(data.phone),
+            password: data.password
+        }))
+    }
+
     return (
         <MainContainer>
             <AppContainer style={{ height: "100%" }}>
@@ -36,7 +45,7 @@ export const Login: FC<NavProps> = ({ navigation }) => {
                                             <BlueLink title={"Забыли пароль?"} onPress={() => navigation.navigate("restore_password")} />
                                         </View>
                                     </View>
-                                    <MainButton handlePress={() => { }}>
+                                    <MainButton handlePress={handleSendLogin}>
                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                                     </MainButton>
                                 </View>
