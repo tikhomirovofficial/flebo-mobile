@@ -1,21 +1,41 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProfileCreateForm, ProfileData, ProfileEditTextFields } from "../../../types/entities/user.types";
+import { ProfileData, ProfileEditForm, ProfileEditTextFields } from "../../../types/entities/user.types";
 import { GetProfileFilledRes, ProfileCreateReq, ProfileCreateRes, ProfileGetRes, StorePushTokenReq, StorePushTokenRes } from "../../../types/api/user.api.types";
 import { AxiosResponse } from "axios";
 import { UserApi } from "../../../http/api/user.api";
-import { err } from "react-native-svg/lib/typescript/xml";
+import { correctFormDate } from "../../../utils/forms/dates/correctFormDate";
+import { EMAIL } from "../../../config/masks";
 
 
 type ProfileSliceState = {
+    errors: {
+        edit_profile: string
+    }
     has_profile: boolean | null
     data: ProfileData,
     form: Omit<ProfileData, "bonus">,
+    edit_form: {
+        gender: boolean,
+        select_fields: {
+            gender: number
+            city: number
+        },
+        text_fields: ProfileEditTextFields
+        state: {
+            sending: boolean
+            disabled: boolean
+            err: string
+        }
+    },
     loadings: {
         profile: boolean
     }
 }
 
 const initialState: ProfileSliceState = {
+    errors: {
+        edit_profile: ""
+    },
     has_profile: true,
     data: {
         first_name: "",
@@ -23,9 +43,28 @@ const initialState: ProfileSliceState = {
         subname: "",
         phone: "",
         dob: "",
-        image: "",
         email: "",
         gender: true
+    },
+    edit_form: {
+        gender: false,
+        select_fields: {
+            gender: 0,
+            city: 0
+        },
+        text_fields: {
+            first_name: "",
+            email: "",
+            last_name: "",
+            subname: "",
+            dob: "",
+            password: ""
+        },
+        state: {
+            sending: false,
+            disabled: false,
+            err: ""
+        }
     },
     form: {
         first_name: "",
@@ -34,7 +73,6 @@ const initialState: ProfileSliceState = {
         subname: "",
         dob: "",
         phone: "",
-        image: "",
         gender: true
     },
     loadings: {
@@ -57,14 +95,33 @@ export const getProfile = createAsyncThunk(
                     subname: "Борисович",
                     email: "",
                     dob: "2000-11-11",
-                    image: "/",
                     gender: true
                 })
             }, 1000)
         })
     }
 )
-
+export const editProfile = createAsyncThunk(
+    'profile/edit',
+    async (_, { dispatch }) => {
+        // const res: AxiosResponse<ProfileGetRes> = await handleTokenRefreshedRequest(null, UserApi.GetProfile)
+        // console.log("profile ", res.data);
+        // return res.data
+        return new Promise<ProfileData>((res, rej) => {
+            setTimeout(() => {
+                res({
+                    first_name: "Борис",
+                    last_name: "Борисов",
+                    phone: "79005001849",
+                    subname: "Борисович",
+                    email: "",
+                    dob: "2000-11-11",
+                    gender: true
+                })
+            }, 1000)
+        })
+    }
+)
 export const getHasProfile = createAsyncThunk(
     'has-profile/get',
     async (logout: any, { dispatch }) => {
@@ -90,17 +147,45 @@ export const ProfileSlice = createSlice({
     name: "profile",
     initialState,
     reducers: {
-        handleProfileForm: (state, action: PayloadAction<{ key: keyof ProfileEditTextFields, val: string }>) => {
-            const key = action.payload.key
-            const val = action.payload.val
 
-            if (key === "gender") {
-                state.form[key] = Boolean(val)
-                return
-            }
-            state.form[key] = val
+        handleEditProfileGender: (state, action: PayloadAction<boolean>) => {
+            state.edit_form.gender = action.payload
         },
+        handleEditProfileTextFields: (state, action: PayloadAction<{ key: keyof typeof initialState.edit_form.text_fields, val: string }>) => {
+            if (state.errors.edit_profile) {
+                state.errors.edit_profile = ""
+            }
+            const tempTextFields: typeof initialState.edit_form.text_fields = JSON.parse(JSON.stringify(state.edit_form.text_fields))
+            const key = action.payload.key
+            let val = action.payload.val
 
+            if (key === "dob") {
+                val = correctFormDate(val)
+            }
+            tempTextFields[key] = val
+            state.edit_form.text_fields = tempTextFields
+            const datesAreValid = tempTextFields.dob.length === 10
+            const allFieldsAreNotEmpty = Object.values(tempTextFields).every((val) => val.length > 0)
+            const emailIsValid = EMAIL.test(tempTextFields["email"])
+
+            state.edit_form.state.disabled = !datesAreValid || !allFieldsAreNotEmpty || !emailIsValid
+        },
+        handleEditProfileSelectFields: (state, action: PayloadAction<{ key: keyof typeof initialState.edit_form.select_fields, val: number }>) => {
+            if (state.errors.edit_profile) {
+                state.errors.edit_profile = ""
+            }
+            const tempSelectFields: typeof initialState.edit_form.select_fields = JSON.parse(JSON.stringify(state.edit_form.select_fields))
+            const key = action.payload.key
+            let val = action.payload.val
+            tempSelectFields[key] = val
+
+            state.edit_form.select_fields = tempSelectFields
+
+            const cityIsValid = tempSelectFields.city > 0
+            if (!cityIsValid) {
+                state.edit_form.state.disabled = true
+            }
+        },
         setDefaultProfileForm: state => {
             state.form = state.data
         },
@@ -144,7 +229,7 @@ export const ProfileSlice = createSlice({
 })
 
 export const {
-    handleProfileForm,
+    handleEditProfileTextFields,
     setDefaultProfileForm,
     resetProfileData
 } = ProfileSlice.actions

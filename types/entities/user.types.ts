@@ -5,7 +5,6 @@ export type ProfileData = {
     last_name: string
     subname: string
     dob: string
-    image: string
     gender: boolean,
     phone: string,
     email: string
@@ -18,7 +17,5 @@ export type ProfilePersonData = {
     passport_id: string,
     email: string
 }
-export type ProfileEditTextFields = Pick<ProfileData, | "first_name" | "last_name" | "subname" | "gender">
-export type ProfileCreateForm = Omit<ProfileCreateReq, "passport_series" | "passport_id" | "image" | "gender"> & {
-    passport_numbers: string
-}
+
+export type ProfileEditTextFields = Pick<ProfileData, | "first_name" | "last_name" | "subname" | "dob" | "email"> & { password?: string }
