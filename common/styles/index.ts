@@ -161,7 +161,7 @@ const cs = StyleSheet.create({
         backgroundColor: "#F1F4FA"
     },
     bgDisabled: {
-        backgroundColor: "#F0F0F0"
+        backgroundColor: "#E9E9E9"
     },
     // FONT SIZES
     fzXXS: {

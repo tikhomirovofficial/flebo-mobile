@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
@@ -14,10 +14,14 @@ import { ServiceItem } from '../../components/ServiceItem';
 import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 import { ServiceBigItem } from '../../components/ServiceBigItem';
+import { getAllDoctors } from '../../app/features/doctors/doctorsSlice';
+import { SkeletonContainer } from 'react-native-skeleton-component';
+import { SkeletonView } from '../../components/SkeletonView';
 
 const DoctorImage = require('../../assets/images/doctor.jpg')
 export const Doctors: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    const { all } = useAppSelector(state => state.doctors)
 
     return (
         <ScrollView>
@@ -26,20 +30,28 @@ export const Doctors: FC<NavProps> = ({ navigation }) => {
                     <Text style={[cs.title]}>Список врачей</Text>
                     <View style={[cs.fColumn, cs.spaceM]}>
                         <View style={[cs.fColumn, cs.spaceM]}>
-                            <DoctorItem image={DoctorImage} />
-                            <DoctorItem image={DoctorImage} />
-                            <DoctorItem image={DoctorImage} />
+                            {
+                                all.loading ?
+                                    <SkeletonContainer>
+                                        <SkeletonView width={"100%"} height={189} />
+                                        <SkeletonView width={"100%"} height={189} />
+                                    </SkeletonContainer> :
+                                    all.items.map(item => (
+                                        <DoctorItem image={DoctorImage} />
+                                    ))
+                            }
 
                         </View>
-                        <View style={[cs.fAlCenter]}>
-                            <TouchableOpacity style={[{ width: 154, paddingVertical: 6}]}>
-                                <Text style={[cs.blueLink, cs.fSemi]}>Загрузить еще врачей</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {
+                            !all.loading ? <View style={[cs.fAlCenter]}>
+                                <TouchableOpacity style={[{ width: 154, paddingVertical: 6 }]}>
+                                    <Text style={[cs.blueLink, cs.fSemi]}>Загрузить еще врачей</Text>
+                                </TouchableOpacity>
+                            </View> : null
+                        }
+
 
                     </View>
-
-
                 </AppContainer>
             </MainContainer >
         </ScrollView >

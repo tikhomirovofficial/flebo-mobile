@@ -1,13 +1,14 @@
-import { ProfileCreateReq } from "../api/user.api.types"
 
 export type ProfileData = {
     first_name: string
     last_name: string
     subname: string
     dob: string
+    city: number,
     gender: boolean,
     phone: string,
     email: string
+    password?: string
 }
 export type ProfilePersonData = {
     pob: string

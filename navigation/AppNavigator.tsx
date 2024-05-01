@@ -20,20 +20,24 @@ import { CreateProfile } from '../screens/CreateProfile';
 import { EventProvider } from 'react-native-outside-press';
 import OrderModal from '../components/Modals/OrderModal';
 import { getProfile } from '../app/features/profile/profileSlice';
+import { getAllDoctors } from '../app/features/doctors/doctorsSlice';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const MainTabs: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    const { all } = useAppSelector(state => state.doctors)
+
     useEffect(() => {
         dispatch(getProfile())
+        dispatch(getAllDoctors({ part: all.part }))
     }, [])
 
     return (
         <>
             <Tab.Navigator
-                initialRouteName={"profile"}
+                initialRouteName={"doctors"}
                 tabBar={(props) => <AppTab key={props.state.index} {...props} />}
                 sceneContainerStyle={[styles.main, { backgroundColor: "white" }]}
                 screenOptions={{ headerShown: false, unmountOnBlur: true }}>
@@ -58,7 +62,7 @@ const AppNavigator = () => {
         <NavigationContainer>
             <EventProvider>
                 <View style={[styles.main]}>
-                    <Stack.Navigator initialRouteName={"login"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                    <Stack.Navigator initialRouteName={"create_profile"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                         {
                             !token.valid ?
                                 <>

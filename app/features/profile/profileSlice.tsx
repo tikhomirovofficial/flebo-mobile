@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProfileData, ProfileEditForm, ProfileEditTextFields } from "../../../types/entities/user.types";
-import { GetProfileFilledRes, ProfileCreateReq, ProfileCreateRes, ProfileGetRes, StorePushTokenReq, StorePushTokenRes } from "../../../types/api/user.api.types";
+import { ProfileData, ProfileEditTextFields } from "../../../types/entities/user.types";
+import { GetProfileFilledRes, ProfileEditReq, ProfileEditRes, ProfileGetRes, StorePushTokenReq, StorePushTokenRes } from "../../../types/api/user.api.types";
 import { AxiosResponse } from "axios";
 import { UserApi } from "../../../http/api/user.api";
 import { correctFormDate } from "../../../utils/forms/dates/correctFormDate";
@@ -13,19 +13,19 @@ type ProfileSliceState = {
     }
     has_profile: boolean | null
     data: ProfileData,
-    form: Omit<ProfileData, "bonus">,
     edit_form: {
-        gender: boolean,
         select_fields: {
             gender: number
             city: number
         },
-        text_fields: ProfileEditTextFields
+        text_fields: ProfileEditTextFields & { accept_password?: string }
         state: {
             sending: boolean
             disabled: boolean
             err: string
         }
+        available_cities: Array<{ id: number, name: string }>
+        available_genders: Array<{ id: number, name: string }>
     },
     loadings: {
         profile: boolean
@@ -39,6 +39,7 @@ const initialState: ProfileSliceState = {
     has_profile: true,
     data: {
         first_name: "",
+        city: 0,
         last_name: "",
         subname: "",
         phone: "",
@@ -47,7 +48,6 @@ const initialState: ProfileSliceState = {
         gender: true
     },
     edit_form: {
-        gender: false,
         select_fields: {
             gender: 0,
             city: 0
@@ -56,25 +56,43 @@ const initialState: ProfileSliceState = {
             first_name: "",
             email: "",
             last_name: "",
+            accept_password: "",
             subname: "",
             dob: "",
             password: ""
         },
         state: {
             sending: false,
-            disabled: false,
+            disabled: true,
             err: ""
-        }
+        },
+        available_cities: [
+            {
+                id: 1,
+                name: "Москва"
+            },
+            {
+                id: 2,
+                name: "Питер"
+            },
+            {
+                id: 3,
+                name: "Ульяновск"
+            }
+        ],
+        available_genders: [
+            {
+                id: 1,
+                name: "Мужской"
+            },
+            {
+                id: 2,
+                name: "Женский"
+            },
+        ],
+
     },
-    form: {
-        first_name: "",
-        email: "",
-        last_name: "",
-        subname: "",
-        dob: "",
-        phone: "",
-        gender: true
-    },
+
     loadings: {
         profile: true,
     }
@@ -93,6 +111,7 @@ export const getProfile = createAsyncThunk(
                     last_name: "Борисов",
                     phone: "79005001849",
                     subname: "Борисович",
+                    city: 0,
                     email: "",
                     dob: "2000-11-11",
                     gender: true
@@ -103,20 +122,26 @@ export const getProfile = createAsyncThunk(
 )
 export const editProfile = createAsyncThunk(
     'profile/edit',
-    async (_, { dispatch }) => {
+    async (req: ProfileEditReq, { dispatch }) => {
         // const res: AxiosResponse<ProfileGetRes> = await handleTokenRefreshedRequest(null, UserApi.GetProfile)
         // console.log("profile ", res.data);
         // return res.data
-        return new Promise<ProfileData>((res, rej) => {
+        console.log(req);
+
+        return new Promise<ProfileEditRes>((res, rej) => {
             setTimeout(() => {
                 res({
-                    first_name: "Борис",
-                    last_name: "Борисов",
-                    phone: "79005001849",
-                    subname: "Борисович",
-                    email: "",
-                    dob: "2000-11-11",
-                    gender: true
+                    status: true,
+                    user: {
+                        first_name: "Борис",
+                        last_name: "Борисов",
+                        phone: "79005001849",
+                        city: 0,
+                        subname: "Борисович",
+                        email: "",
+                        dob: "2000-11-11",
+                        gender: true
+                    }
                 })
             }, 1000)
         })
@@ -147,10 +172,6 @@ export const ProfileSlice = createSlice({
     name: "profile",
     initialState,
     reducers: {
-
-        handleEditProfileGender: (state, action: PayloadAction<boolean>) => {
-            state.edit_form.gender = action.payload
-        },
         handleEditProfileTextFields: (state, action: PayloadAction<{ key: keyof typeof initialState.edit_form.text_fields, val: string }>) => {
             if (state.errors.edit_profile) {
                 state.errors.edit_profile = ""
@@ -164,11 +185,6 @@ export const ProfileSlice = createSlice({
             }
             tempTextFields[key] = val
             state.edit_form.text_fields = tempTextFields
-            const datesAreValid = tempTextFields.dob.length === 10
-            const allFieldsAreNotEmpty = Object.values(tempTextFields).every((val) => val.length > 0)
-            const emailIsValid = EMAIL.test(tempTextFields["email"])
-
-            state.edit_form.state.disabled = !datesAreValid || !allFieldsAreNotEmpty || !emailIsValid
         },
         handleEditProfileSelectFields: (state, action: PayloadAction<{ key: keyof typeof initialState.edit_form.select_fields, val: number }>) => {
             if (state.errors.edit_profile) {
@@ -180,19 +196,36 @@ export const ProfileSlice = createSlice({
             tempSelectFields[key] = val
 
             state.edit_form.select_fields = tempSelectFields
+        },
+        checkValidForm: state => {
+            const { text_fields, select_fields } = state.edit_form
+            const { password, accept_password, ...neededFields } = text_fields
 
-            const cityIsValid = tempSelectFields.city > 0
-            if (!cityIsValid) {
-                state.edit_form.state.disabled = true
+            const selectValiesAreValid = select_fields.city > 0 && select_fields.gender > 0
+            const datesAreValid = state.edit_form.text_fields.dob.length === 10
+            const allFieldsAreNotEmpty = Object.values(neededFields).every((val) => val.length > 0)
+            const emailIsValid = EMAIL.test(text_fields["email"])
+            let passwordsValid = true
+            if (password !== undefined && accept_password !== undefined) {
+                if (password.length > 0) {
+                    console.log("Пароли нужны");
+
+                    if (password !== accept_password) {
+                        console.log(accept_password, password);
+                        passwordsValid = false
+                    }
+                }
             }
+
+            state.edit_form.state.disabled = !datesAreValid || !allFieldsAreNotEmpty || !emailIsValid || !passwordsValid || !selectValiesAreValid
         },
         setDefaultProfileForm: state => {
-            state.form = state.data
+            state.edit_form = state.edit_form
         },
 
         resetProfileData: state => {
             state.data = initialState.data
-            state.form = initialState.form
+            state.edit_form = initialState.edit_form
             state.has_profile = initialState.has_profile
         }
     },
@@ -216,12 +249,26 @@ export const ProfileSlice = createSlice({
         builder.addCase(getProfile.fulfilled, (state, action) => {
             console.log(action.payload);
             state.data = action.payload
-            state.form = action.payload
+            //state.form = action.payload
             state.loadings.profile = false
         })
         builder.addCase(getProfile.rejected, (state, action) => {
             console.log(action.error);
             state.loadings.profile = false
+        })
+        //PROFILE EDIT
+        builder.addCase(editProfile.pending, (state, action) => {
+            state.edit_form.state.sending = true
+        })
+        builder.addCase(editProfile.fulfilled, (state, action) => {
+            if (!state.has_profile) {
+                state.has_profile = action.payload.status
+            }
+            state.edit_form.state.sending = false
+        })
+        builder.addCase(editProfile.rejected, (state, action) => {
+            state.edit_form.state.err = "Не удалось создать профиль!"
+            state.edit_form.state.sending = false
         })
 
 
@@ -230,6 +277,8 @@ export const ProfileSlice = createSlice({
 
 export const {
     handleEditProfileTextFields,
+    handleEditProfileSelectFields,
+    checkValidForm,
     setDefaultProfileForm,
     resetProfileData
 } = ProfileSlice.actions

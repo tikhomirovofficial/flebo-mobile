@@ -13,3 +13,13 @@ export type ResponseStatus = {
 export type HasId = {
     id: number
 }
+export type HasPart = {
+    part: number
+}
+export type CanLoadPart = {
+    can_next: boolean
+}
+export type HasPagination = {
+    part_loading: boolean
+} & CanLoadPart & HasPart
+

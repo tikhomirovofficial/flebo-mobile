@@ -1,67 +1,41 @@
-import React, { FC, useEffect, useState } from 'react'
-import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
+import React, { FC, useEffect } from 'react'
+import { View, Text, ScrollView } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
-import { ArrowRight, BackIcon, DocsIcon, DoctorThingIcon, HistoryIcon, MenuIcon, PenDrawedIcon, PenDrawedUnderIcon, PlanIcon, ProfileIcon, SearchIcon } from '../../icons';
 import { InputField } from '../../components/InputField';
 import MainButton from '../../components/MainButton';
-import { phoneMask } from '../../config/masks';
+import { dateMask } from '../../config/masks';
 import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
-import { handleLoginForm } from '../../app/features/auth/loginSlice';
 import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
-import { ServiceItem } from '../../components/ServiceItem';
-import { ResultItem } from '../../components/ResutItem';
-import { DoctorItem } from '../../components/DoctorItem';
-import { ServiceBigItem } from '../../components/ServiceBigItem';
-import { HistoryItem } from '../../components/HistoryItem';
 import { SelectField } from '../../components/SelectField';
+import { checkValidForm, editProfile, handleEditProfileSelectFields, handleEditProfileTextFields } from '../../app/features/profile/profileSlice';
+import { ProfileEditReq } from '../../types/api/user.api.types';
 
-const data = [{ id: 1, name: "Москва" }, { id: 52, name: "Этот город наш" }]
-const sexes = [
-    {
-        id: 1,
-        name: "Мужской"
-    },
-    {
-        id: 2,
-        name: "Женский"
-    },
-    {
-        id: 21,
-        name: "Женский"
-    },
-    {
-        id: 22,
-        name: "Женский"
-    },
-    {
-        id: 23,
-        name: "Женский"
-    },
-    {
-        id: 24,
-        name: "Женский"
-    },
-    {
-        id: 35,
-        name: "Женский"
-    },
-    {
-        id: 215,
-        name: "Женский"
-    },
-    {
-        id: 252,
-        name: "Женский"
-    },
 
-]
 
 export const CreateProfile: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
-    const [city, setCity] = useState(0)
-    const [sex, setSex] = useState(0)
+    const { text_fields, select_fields, available_cities, available_genders, state } = useAppSelector(state => state.profile.edit_form)
+
+    const handleSendEditProfile = () => {
+        const preparedReq: ProfileEditReq = {
+            first_name: text_fields.first_name,
+            last_name: text_fields.last_name,
+            subname: text_fields.subname,
+            gender: select_fields.gender === 1 ? true : false,
+            city: select_fields.city,
+            dob: text_fields.dob,
+            email: text_fields.email,   
+        }
+
+        if (text_fields.password !== undefined && text_fields.password?.length > 0) {
+            preparedReq.password = text_fields.password
+        }
+        dispatch(editProfile(preparedReq))
+    }
+    
+    useEffect(() => { dispatch(checkValidForm()) }, [text_fields, select_fields])
 
     return (
         <ScrollView nestedScrollEnabled>
@@ -71,35 +45,34 @@ export const CreateProfile: FC<NavProps> = ({ navigation }) => {
                     <View style={[cs.fColumn]}>
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <Text style={[cs.fzS, cs.text]}>Заполните данные о себе</Text>
-                            <InputField placeholder='Имя' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Фамилия' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Отчество' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
+                            <InputField placeholder='Имя' val={text_fields.first_name} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "first_name", val }))} />
+                            <InputField placeholder='Фамилия' val={text_fields.last_name} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "last_name", val }))} />
+                            <InputField placeholder='Отчество' val={text_fields.subname} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "subname", val }))} />
+                            <InputField type={"number-pad"} mask={dateMask} placeholder='Дата рождения' val={text_fields.dob} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "dob", val }))} />
                             <SelectField
-                                current={city}
+                                current={select_fields.city}
                                 fieldTextKey={"name"}
-                                items={data}
-                                selectHandler={(val) => setCity(val)}
-                                val={data.find(item => item.id === city)?.name || ""}
+                                items={available_cities}
+                                selectHandler={(val) => dispatch(handleEditProfileSelectFields({ key: "city", val }))}
+                                val={available_cities.find(item => item.id === select_fields.city)?.name || ""}
                                 placeholder={"Выберите город"}
                             />
                             <SelectField
-                                current={sex}
+                                current={select_fields.gender}
                                 fieldTextKey={"name"}
-                                items={sexes}
-                                selectHandler={(val) => setSex(val)}
-                                val={sexes.find(item => item.id === sex)?.name || ""}
+                                items={available_genders}
+                                selectHandler={(val) => dispatch(handleEditProfileSelectFields({ key: "gender", val }))}
+                                val={available_genders.find(item => item.id === select_fields.gender)?.name || ""}
                                 placeholder={"Ваш пол"}
                             />
-                            <InputField placeholder='Придумайте пароль' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='Подтверждение пароля' val={""} onChange={(val) => { }} />
-                            <InputField placeholder='E-mail' val={""} onChange={(val) => { }} />
-                            <MainButton handlePress={() => { }}>
+                            <InputField hideValue placeholder='Придумайте пароль' val={text_fields.password || ""} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "password", val }))} />
+                            <InputField hideValue placeholder='Подтвердите пароль' val={text_fields.accept_password || ""} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "accept_password", val }))} />
+                            <InputField placeholder='E-mail' val={text_fields.email} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "email", val }))} />
+                            <MainButton disabled={state.disabled} handlePress={handleSendEditProfile}>
                                 <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                             </MainButton>
                         </View>
                     </View>
-
                 </AppContainer>
             </MainContainer >
         </ScrollView >

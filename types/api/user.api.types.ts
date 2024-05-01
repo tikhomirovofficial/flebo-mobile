@@ -37,8 +37,10 @@ export type GetProfileFilledRes = {
     push_token: string
 } & HasId & ResponseStatus
 
-// Регистрация профиля
-export type ProfileCreateReq = Omit<ProfileData, "bonus" | "image"> & ProfilePersonData
-export type ProfileCreateRes = {
-    url: string
+// Изменение профиля
+export type ProfileEditReq = Omit<ProfileData, "phone"> & {
+    city: number
+}
+export type ProfileEditRes = {
+    user: ProfileData
 } & ResponseStatus

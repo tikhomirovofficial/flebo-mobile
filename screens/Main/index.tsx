@@ -14,6 +14,8 @@ import { ServiceItem } from '../../components/ServiceItem';
 import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 import { BlueLink } from '../../components/BlueLink';
+import { SkeletonContainer } from 'react-native-skeleton-component';
+import { SkeletonView } from '../../components/SkeletonView';
 
 const UziServiceImage = require('../../assets/images/services/uzi.jpg')
 const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
@@ -21,31 +23,58 @@ const DoctorImage = require('../../assets/images/doctor.jpg')
 
 export const Main: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
-    const { data } = useAppSelector(state => state.profile)
+    const { data, loadings } = useAppSelector(state => state.profile)
+    const { doctors } = useAppSelector(state => state)
 
     return (
         <ScrollView>
             <MainContainer>
+
                 <View style={[cs.fColumn, cs.spaceXL]}>
                     <AppContainer>
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <View style={[cs.fColumn, cs.spaceM]}>
-                                <Text style={[cs.title]}>+{data.phone}</Text>
+
+                                {
+                                    loadings.profile ?
+                                        <SkeletonContainer>
+                                            <SkeletonView width={"100%"} height={56} />
+                                        </SkeletonContainer> :
+
+                                        <Text style={[cs.title]}>+{data.phone}</Text>
+                                }
+
+
+
                                 {/* <View style={[styles.search, cs.bgGray, cs.fRow, cs.fAlCenter, cs.spaceS, cs.mainRadius]}>
                                     <SearchIcon />
                                     <TextInput style={[cs.fzM, cs.fReg, cs.flexOne, { height: "100%" }]} placeholder={"Поиск"} />
                                 </View> */}
                             </View>
+
                             <View style={[cs.fColumn, cs.spaceS]}>
-                                <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
-                                    <Text style={[cs.subTitle, cs.colorDark, { fontSize: 32 }]}>Результаты анализов</Text>
-                                    <MenuIcon />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
-                                    <Text style={[cs.subTitle, cs.colorDark, { fontSize: 32 }]}>Записаться к врачу</Text>
-                                    <MenuIcon />
-                                </TouchableOpacity>
+                                {
+                                    loadings.profile ?
+                                        <SkeletonContainer>
+                                            <SkeletonView width={"100%"} height={86} />
+                                            <SkeletonView width={"100%"} height={85} />
+
+                                        </SkeletonContainer> :
+                                        <>
+                                            <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
+                                                <Text style={[cs.subTitle, cs.colorDark, { fontSize: 32 }]}>Результаты анализов</Text>
+                                                <MenuIcon />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
+                                                <Text style={[cs.subTitle, cs.colorDark, { fontSize: 32 }]}>Записаться к врачу</Text>
+                                                <MenuIcon />
+                                            </TouchableOpacity>
+                                        </>
+                                }
+
                             </View>
+
+
                         </View>
                     </AppContainer>
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
@@ -67,20 +96,37 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                     </View> */}
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
                         <Text style={[cs.subTitle]}>Последние результаты</Text>
-                        <ResultItem full_name={"Подосёнов Вячеслав Сергеевич"} date={"04.05.2024"} />
+                        {
+                            true ?
+                                <SkeletonContainer>
+                                    <SkeletonView width={"100%"} height={152} />
+                                </SkeletonContainer> :
+                                <ResultItem full_name={"Подосёнов Вячеслав Сергеевич"} date={"04.05.2024"} />
+
+                        }
+
                     </AppContainer>
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
                         <Text style={[cs.subTitle]}>Врачи</Text>
 
-                        <View>
-                            <DoctorItem image={DoctorImage} />
-                        </View>
+
+                        {
+                            doctors.all.loading ?
+                                <SkeletonContainer>
+                                    <SkeletonView width={"100%"} height={189} />
+                                </SkeletonContainer> :
+                                <View>
+                                    <DoctorItem image={DoctorImage} />
+                                </View>
+                        }
+
                         <View style={[cs.fCenterRow]}>
                             <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
                         </View>
 
                     </AppContainer>
                 </View>
+
             </MainContainer >
         </ScrollView >
     )

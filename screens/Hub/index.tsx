@@ -41,10 +41,10 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                                         <View style={[cs.fColumn, cs.spaceM]}>
                                             {
                                                 loadings.profile ? <>
-                                                    <SkeletonView height={60} width={"100%"} />
-                                                    <SkeletonView height={60} width={"100%"} />
-                                                    <SkeletonView height={60} width={"100%"} />
-                                                    <SkeletonView height={60} width={"100%"} />
+                                                    <SkeletonView height={64} width={"100%"} />
+                                                    <SkeletonView height={64} width={"100%"} />
+                                                    <SkeletonView height={64} width={"100%"} />
+                                                    <SkeletonView height={64} width={"100%"} />
                                                 </> : <>
                                                     <MainButton style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => dispatch(handleProfileEditModal())}>
                                                         <PenDrawedUnderIcon height={18} width={18} />
