@@ -24,7 +24,7 @@ const DoctorImage = require('../../assets/images/doctor.jpg')
 export const Main: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { data, loadings } = useAppSelector(state => state.profile)
-    const { doctors } = useAppSelector(state => state)
+    const { doctors, documents } = useAppSelector(state => state)
 
     return (
         <ScrollView>
@@ -97,13 +97,16 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
                         <Text style={[cs.subTitle]}>Последние результаты</Text>
                         {
-                            true ?
+                            documents.all.loading ?
                                 <SkeletonContainer>
                                     <SkeletonView width={"100%"} height={152} />
                                 </SkeletonContainer> :
                                 <ResultItem full_name={"Подосёнов Вячеслав Сергеевич"} date={"04.05.2024"} />
 
                         }
+                        <View style={[cs.fCenterRow]}>
+                            <BlueLink onPress={() => alert("sas")} title={"Смотреть все документы"} />
+                        </View>
 
                     </AppContainer>
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
@@ -116,7 +119,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                                     <SkeletonView width={"100%"} height={189} />
                                 </SkeletonContainer> :
                                 <View>
-                                    <DoctorItem image={DoctorImage} />
+                                    <DoctorItem {...doctors.all.items[0]} />
                                 </View>
                         }
 

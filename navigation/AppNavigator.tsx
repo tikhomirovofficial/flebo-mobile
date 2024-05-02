@@ -21,17 +21,19 @@ import { EventProvider } from 'react-native-outside-press';
 import OrderModal from '../components/Modals/OrderModal';
 import { getProfile } from '../app/features/profile/profileSlice';
 import { getAllDoctors } from '../app/features/doctors/doctorsSlice';
+import { getAllDocuments } from '../app/features/documents/documentsSlice';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const MainTabs: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
-    const { all } = useAppSelector(state => state.doctors)
+    const { doctors, documents } = useAppSelector(state => state)
 
     useEffect(() => {
         dispatch(getProfile())
-        dispatch(getAllDoctors({ part: all.part }))
+        dispatch(getAllDoctors({ part: doctors.all.part }))
+        dispatch(getAllDocuments({ part: documents.all.part }))
     }, [])
 
     return (
@@ -62,7 +64,7 @@ const AppNavigator = () => {
         <NavigationContainer>
             <EventProvider>
                 <View style={[styles.main]}>
-                    <Stack.Navigator initialRouteName={"create_profile"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                    <Stack.Navigator initialRouteName={"home"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                         {
                             !token.valid ?
                                 <>

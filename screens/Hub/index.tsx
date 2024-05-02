@@ -50,15 +50,15 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                                                         <PenDrawedUnderIcon height={18} width={18} />
                                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fMed]}>Личные данные</Text>
                                                     </MainButton>
-                                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => navigation.navigate("history")}>
                                                         <HistoryIcon />
                                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>История посещения</Text>
                                                     </MainButton>
-                                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => navigation.navigate("documents")}>
                                                         <PlanIcon />
                                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>План лечения</Text>
                                                     </MainButton>
-                                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => { }}>
+                                                    <MainButton isFilled={false} style={[cs.fRow, cs.spaceS, styles.hubBtn]} handlePress={() => navigation.navigate("documents")}>
                                                         <DocsIcon />
                                                         <Text style={[cs.txtCenter, cs.fzM, cs.colorGray, cs.fMed]}>Документы</Text>
                                                     </MainButton>

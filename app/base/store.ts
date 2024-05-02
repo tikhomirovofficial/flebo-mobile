@@ -5,6 +5,7 @@ import { registerReducer } from '../features/auth/registerSlice'
 import { modalsReducer } from '../features/modals/modalsSlice'
 import { profileReducer } from '../features/profile/profileSlice'
 import { doctorsReducer } from '../features/doctors/doctorsSlice'
+import { documentsReducer } from '../features/documents/documentsSlice'
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         restorePassword: restorePasswordReducer,
         modals: modalsReducer,
         profile: profileReducer,
-        doctors: doctorsReducer
+        doctors: doctorsReducer,
+        documents: documentsReducer
     }
 })
 

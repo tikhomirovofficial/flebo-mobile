@@ -2,21 +2,21 @@ import React, { FC } from 'react'
 import { View, ImageBackground, Text, TouchableOpacity } from 'react-native'
 import { cs } from '../../common/styles'
 import { DoctorThingIcon, ArrowRight } from '../../icons'
+import { DoctorApi } from '../../types/entities/doctors.types'
+const DoctorImage = require('../../assets/images/doctor.jpg')
 
-type DoctorItemProps = {
-    image: ImageBitmap
-}
+type DoctorItemProps = Pick<DoctorApi, "first_name" | "last_name" | "middle_name">
 
-export const DoctorItem: FC<DoctorItemProps> = ({ image }) => {
+export const DoctorItem: FC<DoctorItemProps> = (props) => {
     return (
         <View style={[{ backgroundColor: "#FAFBFD", padding: 16, borderRadius: 10 }, cs.fColumn, cs.spaceL]}>
             <View style={[cs.fRow, cs.spaceS]}>
                 <View style={[{ overflow: "hidden", borderRadius: 10 }]}>
                     <ImageBackground style={[{ width: 60, height: 60 }]} resizeMode={"cover"}
-                        source={image} />
+                        source={DoctorImage} />
                 </View>
                 <View style={[cs.fColumn]}>
-                    <Text style={[cs.fSemi, cs.fzM]}>Чатинян Гарик Артурович</Text>
+                    <Text style={[cs.fSemi, cs.fzM, { width: "95%" }]}>{props.last_name} {props.first_name} {props.middle_name}</Text>
                     <Text style={[cs.fReg, cs.fzS]}>Стаж 6 лет</Text>
                     <View style={[cs.spaceXS, cs.fAlCenter, cs.fRow]}>
                         <DoctorThingIcon />
