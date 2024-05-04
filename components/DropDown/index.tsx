@@ -1,15 +1,17 @@
 import React, { FC } from 'react'
-import { View, FlatList, TouchableOpacity, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
+import { View, FlatList, TouchableOpacity, StyleSheet, Text, TouchableWithoutFeedback, ViewStyle } from 'react-native'
 import { cs } from '../../common/styles'
 import { DropDownIcon } from '../../icons'
 import { SelectFieldProps } from '../SelectField'
 import OutsidePressHandler from 'react-native-outside-press'
 
 type DropDownProps = Pick<SelectFieldProps, "current" | "fieldTextKey" | "selectHandler" | "placeholder" | "items"> & {
-    handleFocused: () => void
+    handleFocused: () => void,
+    style?: ViewStyle | ViewStyle[],
+
 }
 
-export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey, placeholder, selectHandler, items, handleFocused }) => {
+export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey = "name", style, placeholder, selectHandler, items, handleFocused }) => {
     const fieldKey = fieldTextKey as string
     const handleSelect = (val: number) => {
         selectHandler(val)
@@ -18,7 +20,7 @@ export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey, placeholder
     return (
 
         <OutsidePressHandler
-            style={[cs.pAbs, styles.dropDownBlock]}
+            style={[cs.pAbs, styles.dropDownBlock, style]}
             onOutsidePress={handleFocused}>
             <View style={{ height: "100%" }}>
                 <TouchableOpacity onPress={handleFocused} style={[cs.fRowBetw, cs.pRel, { paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: "rgba(69, 69, 69, 0.4)" }]}>

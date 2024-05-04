@@ -42,10 +42,10 @@ export const getAllDocuments = createAsyncThunk(
                     can_next: true,
                     docx: [
                         {
-                            created: "",
-                            name: "",
+                            created: "2023-11-03T14:41:16.467",
+                            name: "Тестовая А.А. 1990 мал. таз",
                             id: 1,
-                            url: ""
+                            url: "https://example.com/files/public/AQluJPyim3tSYnU983nBViqHV.docx"
                         },
                     ]
                 })

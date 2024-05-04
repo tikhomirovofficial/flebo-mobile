@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
@@ -16,11 +16,15 @@ import { DoctorItem } from '../../components/DoctorItem';
 import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { HistoryItem } from '../../components/HistoryItem';
 import { BlueLink } from '../../components/BlueLink';
+import { RouteProp } from '@react-navigation/native';
 const DoctorImage = require('../../assets/images/doctor.jpg')
 
-export const DoctorProfile: FC<NavProps> = ({ navigation }) => {
+export const DoctorProfile: FC<NavProps & { route: any }> = ({ navigation, route }) => {
     const dispatch = useAppDispatch()
+    useEffect(() => {
+        console.log(route.params?.id);
 
+    }, [])
     return (
         <ScrollView>
             <MainContainer>
@@ -88,7 +92,7 @@ export const DoctorProfile: FC<NavProps> = ({ navigation }) => {
                             <View style={[cs.fColumn, cs.spaceXL]}>
                                 <View style={[cs.fColumn, cs.spaceS]}>
                                     <View>
-                                        <DoctorItem image={DoctorImage} />
+                                        {/* <DoctorItem  /> */}
                                     </View>
                                     <View style={[cs.fAlCenter]}>
                                         <View style={[cs.fRowBetw, cs.fAlCenter, cs.spaceXL, { maxWidth: 154 }]}>

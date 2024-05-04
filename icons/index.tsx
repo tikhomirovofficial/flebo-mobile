@@ -6,6 +6,14 @@ export interface IconProps {
     height?: number,
     stroke?: string
 }
+export const WifiProblemIcon: FC<IconProps> = ({ width = 140, height = 116 }) => {
+    return (
+        <Svg width={width} height={height} viewBox="0 0 140 116" fill="none">
+            <Path d="M70 108H70.062M8 36.7956C18.5209 26.6702 31.1983 19.0825 45.2 14.9271M26.6 63.7229C31.9476 58.0862 38.2407 53.4828 45.2 50.2135M94.8 14.9271C108.801 19.0825 121.479 26.6702 132 36.7956M94.8 50.2135C101.759 53.4828 108.052 58.0862 113.4 63.7229M70 8V81.3331" stroke="#0BA0B5" strokeWidth="16" strokeLinecap="round" stroke-linejoin="round" />
+        </Svg>
+
+    )
+}
 export const BackIcon: FC<IconProps> = ({ width = 32, height = 32 }) => {
     return (
         <Svg width={width} height={height} viewBox="0 0 32 32" fill="none">
@@ -166,5 +174,15 @@ export const DropDownIcon: FC<IconProps> = ({ width = 32, height = 32, stroke = 
 
     )
 }
+export const ArrowDownIcon: FC<IconProps> = ({ width = 12, height = 7, stroke = "#0BA0B5" }) => {
+    return (
+        <Svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+            <Path d="M11 0.999999L6 6L1 1" stroke="#0BA0B5" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
+        </Svg>
+
+    )
+}
+
+
 
 

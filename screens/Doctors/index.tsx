@@ -37,7 +37,7 @@ export const Doctors: FC<NavProps> = ({ navigation }) => {
                                         <SkeletonView width={"100%"} height={189} />
                                     </SkeletonContainer> :
                                     all.items.map(item => (
-                                        <DoctorItem {...item} />
+                                        <DoctorItem navigation={navigation} {...item} />
                                     ))
                             }
 

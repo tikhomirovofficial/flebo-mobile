@@ -1,15 +1,23 @@
 import React, { FC, ReactNode } from 'react';
 import { cs } from "../../common/styles";
-import { StyleSheet, Text, TouchableOpacity, ViewStyle, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, ViewStyle, View, ActivityIndicator } from "react-native";
 
 type ButtonYellowProps = {
     children: ReactNode,
     isFilled?: boolean,
     style?: ViewStyle | ViewStyle[],
     disabled?: boolean,
+    loading?: boolean,
     handlePress: () => any
 }
-const MainButton: FC<ButtonYellowProps> = ({ children, handlePress, style, isFilled = true, disabled }) => {
+const MainButton: FC<ButtonYellowProps> = ({ children, handlePress, style, loading, isFilled = true, disabled }) => {
+    if (loading) {
+        return (
+            <View style={[cs.mainBtn, cs.fCenterCol, cs.bgDisabled, style]}>
+                <ActivityIndicator color={"#a4a4a4"} />
+            </View>
+        )
+    }
     if (disabled) {
         return (
             <View style={[cs.mainBtn, cs.fCenterCol, cs.bgDisabled, style]}>

@@ -22,6 +22,7 @@ import OrderModal from '../components/Modals/OrderModal';
 import { getProfile } from '../app/features/profile/profileSlice';
 import { getAllDoctors } from '../app/features/doctors/doctorsSlice';
 import { getAllDocuments } from '../app/features/documents/documentsSlice';
+import { LoadingScreen } from '../screens/LoadingScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -64,7 +65,7 @@ const AppNavigator = () => {
         <NavigationContainer>
             <EventProvider>
                 <View style={[styles.main]}>
-                    <Stack.Navigator initialRouteName={"home"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                    <Stack.Navigator initialRouteName={"doctors"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                         {
                             !token.valid ?
                                 <>
@@ -77,7 +78,7 @@ const AppNavigator = () => {
                                     {
                                         has_profile === null ?
                                             <>
-                                                <Stack.Screen name="loading" component={() => <></>} />
+                                                <Stack.Screen name="loading" component={LoadingScreen} />
                                             </> :
                                             has_profile ?
                                                 <Stack.Screen name="home" component={MainTabs} />

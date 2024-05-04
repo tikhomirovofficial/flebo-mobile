@@ -68,7 +68,7 @@ export const CreateProfile: FC<NavProps> = ({ navigation }) => {
                             <InputField hideValue placeholder='Придумайте пароль' val={text_fields.password || ""} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "password", val }))} />
                             <InputField hideValue placeholder='Подтвердите пароль' val={text_fields.accept_password || ""} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "accept_password", val }))} />
                             <InputField placeholder='E-mail' val={text_fields.email} onChange={(val) => dispatch(handleEditProfileTextFields({ key: "email", val }))} />
-                            <MainButton disabled={state.disabled} handlePress={handleSendEditProfile}>
+                            <MainButton loading={false} disabled={state.disabled} handlePress={handleSendEditProfile}>
                                 <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Далее</Text>
                             </MainButton>
                         </View>

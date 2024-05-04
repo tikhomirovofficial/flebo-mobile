@@ -101,7 +101,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                                 <SkeletonContainer>
                                     <SkeletonView width={"100%"} height={152} />
                                 </SkeletonContainer> :
-                                <ResultItem full_name={"Подосёнов Вячеслав Сергеевич"} date={"04.05.2024"} />
+                                <ResultItem {...documents.all.items[0]} />
 
                         }
                         <View style={[cs.fCenterRow]}>

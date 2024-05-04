@@ -1,4 +1,3 @@
-
 export function formatPhoneNumber(phoneNumber: string): string {
     // удаляем все символы, кроме цифр
     phoneNumber = phoneNumber.replace(/\D/g, '');
