@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
@@ -15,10 +15,18 @@ import { ResultItem } from '../../components/ResutItem';
 import { DoctorItem } from '../../components/DoctorItem';
 import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { HistoryItem } from '../../components/HistoryItem';
+import { getAllHistory } from '../../app/features/history/historySlice';
+import { SkeletonContainer } from 'react-native-skeleton-component';
+import { SkeletonView } from '../../components/SkeletonView';
 
 
 export const History: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
+    const { all } = useAppSelector(state => state.history)
+
+    useEffect(() => {
+        dispatch(getAllHistory({}))
+    }, [])
 
     return (
         <ScrollView>
@@ -29,17 +37,29 @@ export const History: FC<NavProps> = ({ navigation }) => {
                     </TouchableOpacity>
                     <Text style={[cs.title]}>История посещения</Text>
                     <View style={[cs.fColumn]}>
-                        <HistoryItem leftTopLabel={"25.02.2024"} rightTopLabel={"2 300 ₽"} description={"Пребывание в круглосуточном стационаре с медикаментозным обеспечением и питанием ( VIP палата) 1 койко день"} />
-                        <HistoryItem isDark leftTopLabel={"25.02.2024"} rightTopLabel={"2 300 ₽"} description={"Пребывание в круглосуточном стационаре с медикаментозным обеспечением и питанием ( VIP палата) 1 койко день"} />
-                        <HistoryItem leftTopLabel={"25.02.2024"} rightTopLabel={"2 300 ₽"} description={"Пребывание в круглосуточном стационаре с медикаментозным обеспечением и питанием ( VIP палата) 1 койко день"} />
-                        <HistoryItem isDark leftTopLabel={"25.02.2024"} rightTopLabel={"2 300 ₽"} description={"Пребывание в круглосуточном стационаре с медикаментозным обеспечением и питанием ( VIP палата) 1 койко день"} />
-                        <HistoryItem leftTopLabel={"25.02.2024"} rightTopLabel={"2 300 ₽"} description={"Пребывание в круглосуточном стационаре с медикаментозным обеспечением и питанием ( VIP палата) 1 койко день"} />
-                       
-                    </View>
+                        {
+                            all.loading ?
+                                <View style={[cs.fColumn, cs.spaceS]}>
+                                    <SkeletonContainer>
+                                        <SkeletonView width={"100%"} height={80} />
+                                        <SkeletonView width={"100%"} height={80} />
+                                        <SkeletonView width={"100%"} height={80} />
+                                    </SkeletonContainer>
+                                </View>
+                                :
+                                all.items.map((item, index) => (
+                                    <HistoryItem
+                                        isDark={index % 2 !== 0}
+                                        leftTopLabel={"25.02.2024"}
+                                        rightTopLabel={"2 300 ₽"}
+                                        description={item.name}
+                                    />
+                                ))
+                        }
 
+                    </View>
                 </AppContainer>
             </MainContainer >
         </ScrollView >
     )
 }
-

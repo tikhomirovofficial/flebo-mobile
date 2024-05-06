@@ -22,7 +22,6 @@ export const DoctorItem: FC<DoctorItemProps & NavProps> = ({ navigation, ...prop
     const handleToOrder = () => {
         dispatch(handleOrderModal())
 
-
     }
 
     return (

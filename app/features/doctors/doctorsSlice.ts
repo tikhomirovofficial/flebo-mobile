@@ -74,7 +74,7 @@ export const getAllDoctors = createAsyncThunk(
     }
 )
 
-export const DoctorsSlice = createSlice({
+export const DoctorSlice = createSlice({
     name: "doctors",
     initialState,
     reducers: {
@@ -121,7 +121,7 @@ export const {
     resetOrderDoctors,
     incrementDoctorsPart,
     incrementSearchedDoctorsPart
-} = DoctorsSlice.actions
+} = DoctorSlice.actions
 
 
-export const doctorsReducer = DoctorsSlice.reducer
+export const doctorsReducer = DoctorSlice.reducer

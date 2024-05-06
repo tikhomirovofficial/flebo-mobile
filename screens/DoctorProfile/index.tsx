@@ -17,14 +17,20 @@ import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { HistoryItem } from '../../components/HistoryItem';
 import { BlueLink } from '../../components/BlueLink';
 import { RouteProp } from '@react-navigation/native';
+import { getDoctorById } from '../../app/features/doctors/doctorSlice';
+import { SkeletonContainer } from 'react-native-skeleton-component';
+import { SkeletonView } from '../../components/SkeletonView';
 const DoctorImage = require('../../assets/images/doctor.jpg')
 
 export const DoctorProfile: FC<NavProps & { route: any }> = ({ navigation, route }) => {
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        console.log(route.params?.id);
+    const { loading } = useAppSelector(state => state.doctor)
 
+    useEffect(() => {
+        const doctorId = route.params?.id
+        dispatch(getDoctorById(doctorId))
     }, [])
+
     return (
         <ScrollView>
             <MainContainer>
@@ -37,81 +43,128 @@ export const DoctorProfile: FC<NavProps & { route: any }> = ({ navigation, route
                         <View style={[cs.fColumn, cs.spaceXL]}>
                             <View style={[cs.fColumn, cs.spaceM]}>
                                 <View style={[cs.fRowBetw, cs.spaceS]}>
-                                    <View style={[{ overflow: "hidden", borderRadius: 10 }]}>
-                                        <ImageBackground style={[{ width: 88, height: 88 }]} resizeMode={"cover"}
-                                            source={DoctorImage} />
-                                    </View>
-                                    <View style={[cs.fColumn, cs.jcCenter, { borderColor: "#0BA0B5", borderWidth: 1, borderRadius: 15, flex: 1, paddingHorizontal: 24 }]}>
-                                        <Text style={[cs.text]}>Профессиональный стаж</Text>
-                                        <Text style={[cs.subTitle, { color: cs.blueLink.color }]}>15 лет</Text>
-                                    </View>
-                                </View>
-                                <View style={[cs.fColumn]}>
-                                    <Text style={[cs.fSemi, cs.fzM]}>Чатинян Гарик Артурович</Text>
-                                    <Text style={[cs.fReg, cs.fzS]}>Стаж 6 лет</Text>
-                                    <View style={[cs.spaceXS, cs.fAlCenter, cs.fRow]}>
-                                        <DoctorThingIcon />
-                                        <Text style={[cs.fReg, cs.fzS]}>Врач-флеболог</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={[cs.fColumn, cs.spaceM]}>
-                                <View style={[cs.fColumn, cs.spaceM, cs.bgGray, { padding: 24, borderRadius: 30 }]}>
-                                    <View style={[cs.fRowBetw, cs.spaceS, cs.fAlCenter]}>
-                                        <Text style={[cs.fMed, cs.fzXL]}>Стоимость услуг</Text>
-                                        <Text style={[cs.fMed, cs.fzXS, cs.colorGray]}>Цена, Р</Text>
-                                    </View>
-                                    <View style={[cs.fRowBetw, cs.spaceS, cs.fAlCenter]}>
-                                        <Text style={[cs.fReg, cs.fzS]}>Первичный приём</Text>
-                                        <Text style={[cs.fReg, cs.fzS]}>2 400</Text>
-                                    </View>
-                                    <Text style={[cs.colorGray, cs.fzXS, cs.fReg]}>Актуальную информацию можно уточнить по телефону: 8 800 555 3 555 (звонок бесплатный).</Text>
-                                </View>
-                                <MainButton handlePress={() => { }}><Text style={[cs.colorWhite, cs.fSemi, cs.fzM]}>Записаться</Text></MainButton>
-                            </View>
-                        </View>
-                        <View style={[cs.fColumn, cs.spaceL]}>
-                            <Text style={[cs.colorDark, cs.fzXL, cs.fBold]}>Образование</Text>
-                            <Text style={[cs.text]}>Ординатура по специальности нейрохирургия под руководством проф. Ш.М. Сафина на кафедре нейрохирургии БГМУ.</Text>
-                        </View>
-                        <View style={[cs.fColumn, cs.spaceL]}>
-                            <Text style={[cs.colorDark, cs.fzXL, cs.fBold]}>Дополнительное образование:</Text>
-                            <Text style={[cs.text]}>2020 г. Профессиональная программа "Нейрохирургия", Сертификационный курс по специальности «нейрохирургия», Российская Медицинская Академия Последипломного образования</Text>
-                        </View>
-                        <View style={[cs.fColumn, cs.spaceL]}>
-                            <Text style={[cs.colorDark, cs.fzXL, cs.fBold]}>Специализация:</Text>
-                            <Text style={[cs.text]}>Лечение геморроя метолом латексного лигирования геморроидальных узлов
-                                Удаление хронической анальной трещины
-                                Современные методы консервативной терапии трещин</Text>
-                        </View>
-                        <View style={[cs.fColumn, cs.spaceXL]}>
-                            <View style={[cs.fColumn, cs.fAlCenter, cs.spaceM]}>
-                                <Text style={[cs.subTitle, cs.colorDark, cs.txtCenter, { maxWidth: 218 }]}>Другие специалисты нашей клиники</Text>
-                                <Text style={[cs.text, cs.txtCenter]}>Приём пациентов ведут высококвалифицированные врачи, за плечами которых длительная практика и широкие знания в своей сфере.</Text>
-                            </View>
-                            <View style={[cs.fColumn, cs.spaceXL]}>
-                                <View style={[cs.fColumn, cs.spaceS]}>
-                                    <View>
-                                        {/* <DoctorItem  /> */}
-                                    </View>
-                                    <View style={[cs.fAlCenter]}>
-                                        <View style={[cs.fRowBetw, cs.fAlCenter, cs.spaceXL, { maxWidth: 154 }]}>
-                                            <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
-                                                <ArrowBlockLeft width={32} height={32} />
-                                            </TouchableOpacity>
-                                            <Text style={[cs.text]}>1/30</Text>
-                                            <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
-                                                <ArrowBlockRight width={32} height={32} />
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
+                                    {
+                                        loading ?
+                                            <SkeletonContainer>
+                                                <SkeletonView width={88} height={88} />
+                                                <SkeletonView style={{ flex: 1 }} width={"100%"} height={88} />
+                                            </SkeletonContainer> :
+                                            <>
+                                                <View style={[{ overflow: "hidden", borderRadius: 10 }]}>
+                                                    <ImageBackground style={[{ width: 88, height: 88 }]} resizeMode={"cover"}
+                                                        source={DoctorImage} />
+                                                </View>
+                                                <View style={[cs.fColumn, cs.jcCenter, { borderColor: "#0BA0B5", borderWidth: 1, borderRadius: 15, flex: 1, paddingHorizontal: 24 }]}>
+                                                    <Text style={[cs.text]}>Профессиональный стаж</Text>
+                                                    <Text style={[cs.subTitle, { color: cs.blueLink.color }]}>15 лет</Text>
+                                                </View>
+                                            </>
+                                    }
+
 
                                 </View>
-                                <View style={[cs.fAlCenter]}>
-                                    <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
-                                </View>
+                                {
+                                    loading ?
+                                        <SkeletonContainer style={[cs.fColumn, cs.spaceXS]} >
+                                            <SkeletonView width={"100%"} height={53} />
+                                        </SkeletonContainer> :
+                                        <View style={[cs.fColumn]}>
+                                            <Text style={[cs.fSemi, cs.fzM]}>Чатинян Гарик Артурович</Text>
+                                            <Text style={[cs.fReg, cs.fzS]}>Стаж 6 лет</Text>
+                                            <View style={[cs.spaceXS, cs.fAlCenter, cs.fRow]}>
+                                                <DoctorThingIcon />
+                                                <Text style={[cs.fReg, cs.fzS]}>Врач-флеболог</Text>
+                                            </View>
+                                        </View>
+
+                                }
+
+
                             </View>
+                            {
+
+
+                                <View style={[cs.fColumn, cs.spaceM]}>
+                                    {
+                                        loading ?
+                                            <SkeletonContainer style={[cs.fColumn]} >
+                                                <SkeletonView width={"100%"} height={150} />
+                                                <SkeletonView width={"100%"} height={60} />
+                                            </SkeletonContainer> :
+                                            <>
+                                                <View style={[cs.fColumn, cs.spaceM, cs.bgGray, { padding: 24, borderRadius: 30 }]}>
+                                                    <View style={[cs.fRowBetw, cs.spaceS, cs.fAlCenter]}>
+                                                        <Text style={[cs.fMed, cs.fzXL]}>Стоимость услуг</Text>
+                                                        <Text style={[cs.fMed, cs.fzXS, cs.colorGray]}>Цена, Р</Text>
+                                                    </View>
+                                                    <View style={[cs.fRowBetw, cs.spaceS, cs.fAlCenter]}>
+                                                        <Text style={[cs.fReg, cs.fzS]}>Первичный приём</Text>
+                                                        <Text style={[cs.fReg, cs.fzS]}>2 400</Text>
+                                                    </View>
+                                                    <Text style={[cs.colorGray, cs.fzXS, cs.fReg]}>Актуальную информацию можно уточнить по телефону: 8 800 555 3 555 (звонок бесплатный).</Text>
+                                                </View>
+                                                <MainButton handlePress={() => { }}><Text style={[cs.colorWhite, cs.fSemi, cs.fzM]}>Записаться</Text></MainButton>
+                                            </>
+
+                                    }
+                                </View>
+                            }
+
                         </View>
+                        {
+                            loading ?
+                                <View style={[cs.fColumn, cs.spaceS]}>
+                                    <SkeletonContainer>
+                                        <SkeletonView width={"100%"} height={80} />
+                                        <SkeletonView width={"100%"} height={80} />
+                                    </SkeletonContainer>
+                                </View>
+                                :
+                                <>
+                                    <View style={[cs.fColumn, cs.spaceL]}>
+                                        <Text style={[cs.colorDark, cs.fzXL, cs.fBold]}>Образование</Text>
+                                        <Text style={[cs.text]}>Ординатура по специальности нейрохирургия под руководством проф. Ш.М. Сафина на кафедре нейрохирургии БГМУ.</Text>
+                                    </View>
+                                    <View style={[cs.fColumn, cs.spaceL]}>
+                                        <Text style={[cs.colorDark, cs.fzXL, cs.fBold]}>Дополнительное образование:</Text>
+                                        <Text style={[cs.text]}>2020 г. Профессиональная программа "Нейрохирургия", Сертификационный курс по специальности «нейрохирургия», Российская Медицинская Академия Последипломного образования</Text>
+                                    </View>
+                                    <View style={[cs.fColumn, cs.spaceL]}>
+                                        <Text style={[cs.colorDark, cs.fzXL, cs.fBold]}>Специализация:</Text>
+                                        <Text style={[cs.text]}>Лечение геморроя метолом латексного лигирования геморроидальных узлов
+                                            Удаление хронической анальной трещины
+                                            Современные методы консервативной терапии трещин</Text>
+                                    </View>
+                                    <View style={[cs.fColumn, cs.spaceXL]}>
+                                        <View style={[cs.fColumn, cs.fAlCenter, cs.spaceM]}>
+                                            <Text style={[cs.subTitle, cs.colorDark, cs.txtCenter, { maxWidth: 218 }]}>Другие специалисты нашей клиники</Text>
+                                            <Text style={[cs.text, cs.txtCenter]}>Приём пациентов ведут высококвалифицированные врачи, за плечами которых длительная практика и широкие знания в своей сфере.</Text>
+                                        </View>
+                                        <View style={[cs.fColumn, cs.spaceXL]}>
+                                            <View style={[cs.fColumn, cs.spaceS]}>
+                                                <View>
+                                                    {/* <DoctorItem  /> */}
+                                                </View>
+                                                <View style={[cs.fAlCenter]}>
+                                                    <View style={[cs.fRowBetw, cs.fAlCenter, cs.spaceXL, { maxWidth: 154 }]}>
+                                                        <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
+                                                            <ArrowBlockLeft width={32} height={32} />
+                                                        </TouchableOpacity>
+                                                        <Text style={[cs.text]}>1/30</Text>
+                                                        <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
+                                                            <ArrowBlockRight width={32} height={32} />
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                </View>
+
+                                            </View>
+                                            <View style={[cs.fAlCenter]}>
+                                                <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </>
+                        }
                     </View>
                 </AppContainer>
             </MainContainer >

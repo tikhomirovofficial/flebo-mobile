@@ -6,3 +6,9 @@ export type AllDoctorsGetReq = HasPart
 export type AllDoctorsGetRes = {
     doctors: DoctorApi[]
 } & ResponseStatus & CanLoadPart
+
+//Получить врача
+export type DoctorByIdGetReq = {id: number}
+export type DoctorByIdGetRes = {
+    doctor: DoctorApi
+} & ResponseStatus

@@ -6,6 +6,8 @@ import { modalsReducer } from '../features/modals/modalsSlice'
 import { profileReducer } from '../features/profile/profileSlice'
 import { doctorsReducer } from '../features/doctors/doctorsSlice'
 import { documentsReducer } from '../features/documents/documentsSlice'
+import { doctorReducer } from '../features/doctors/doctorSlice'
+import { historyReducer } from '../features/history/historySlice'
 
 export const store = configureStore({
     reducer: {
@@ -15,7 +17,9 @@ export const store = configureStore({
         modals: modalsReducer,
         profile: profileReducer,
         doctors: doctorsReducer,
-        documents: documentsReducer
+        doctor: doctorReducer,
+        documents: documentsReducer,
+        history: historyReducer
     }
 })
 
