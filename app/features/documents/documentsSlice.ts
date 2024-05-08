@@ -83,6 +83,8 @@ export const DocumentsSlice = createSlice({
             if (state.all.part === 0) {
                 state.all.part = 1
             }
+            console.log("Докумнты");
+            
         })
         builder.addCase(getAllDocuments.rejected, (state, action) => {
             state.all.loading = false

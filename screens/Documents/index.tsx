@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
@@ -43,12 +43,15 @@ export const Documents: FC<NavProps> = ({ navigation }) => {
     const [currentFilter, setCurrentFilter] = useState(1)
 
     const { all } = useAppSelector(state => state.documents)
+    useEffect(() => {
+        console.log(all.loading);
 
+    }, [all.items])
     return (
         <ScrollView nestedScrollEnabled contentContainerStyle={{ minHeight: "100%" }}>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <BackIcon />
                     </TouchableOpacity>
                     <Text style={[cs.title]}>Документы</Text>
@@ -79,7 +82,7 @@ export const Documents: FC<NavProps> = ({ navigation }) => {
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <SkeletonContainer>
                                 {
-                                    !all.loading ?
+                                    all.loading ?
                                         <SkeletonContainer>
                                             <SkeletonView width={"100%"} height={152} />
                                             <SkeletonView width={"100%"} height={152} />
@@ -91,6 +94,19 @@ export const Documents: FC<NavProps> = ({ navigation }) => {
                             </SkeletonContainer>
 
                         </View>
+                        {
+                            !all.loading ? <View style={[cs.fAlCenter]}>
+                                <TouchableOpacity style={[{ width: 180, paddingVertical: 6 }]}>
+                                    <Text style={[cs.blueLink, cs.fSemi]}>Загрузить еще документы</Text>
+                                </TouchableOpacity>
+                            </View> :
+                                <View style={[cs.fColumn, cs.spaceS]}>
+                                    <SkeletonContainer>
+                                        <SkeletonView width={"100%"} height={70} />
+                                        <SkeletonView width={"100%"} height={70} />
+                                    </SkeletonContainer>
+                                </View>
+                        }
                     </View>
 
                 </AppContainer>

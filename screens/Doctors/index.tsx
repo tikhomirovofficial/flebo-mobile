@@ -47,7 +47,13 @@ export const Doctors: FC<NavProps> = ({ navigation }) => {
                                 <TouchableOpacity style={[{ width: 154, paddingVertical: 6 }]}>
                                     <Text style={[cs.blueLink, cs.fSemi]}>Загрузить еще врачей</Text>
                                 </TouchableOpacity>
-                            </View> : null
+                            </View> :
+                                <View style={[cs.fColumn, cs.spaceS]}>
+                                    <SkeletonContainer>
+                                        <SkeletonView width={"100%"} height={100} />
+                                        <SkeletonView width={"100%"} height={100} />
+                                    </SkeletonContainer>
+                                </View>
                         }
 
 

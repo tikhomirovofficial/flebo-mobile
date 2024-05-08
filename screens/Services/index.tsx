@@ -29,7 +29,6 @@ export const Services: FC<NavProps> = ({ navigation }) => {
                     <View style={[cs.fColumn, cs.spaceM]}>
                         <ServiceBigItem title={"УЗИ"} image={UziServiceImage} />
                         <ServiceBigItem title={"Сдать анализы"} image={AnalisysServiceImage} />
-
                     </View>
                 </AppContainer>
             </MainContainer >

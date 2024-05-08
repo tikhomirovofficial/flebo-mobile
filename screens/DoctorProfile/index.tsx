@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from 'react'
-import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
-import AppContainer from '../../components/AppContainer';
+import React, { FC, useEffect, useRef, useState } from 'react'
+import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground, FlatList, FlatListComponent, FlatListProps } from "react-native";
+import AppContainer, { containerStyles } from '../../components/AppContainer';
 import { cs } from '../../common/styles';
 import { ArrowBlockLeft, ArrowBlockRight, ArrowRight, BackIcon, DocsIcon, DoctorThingIcon, HistoryIcon, MenuIcon, PenDrawedIcon, PenDrawedUnderIcon, PlanIcon, ProfileIcon, SearchIcon } from '../../icons';
 import { InputField } from '../../components/InputField';
@@ -20,11 +20,18 @@ import { RouteProp } from '@react-navigation/native';
 import { getDoctorById } from '../../app/features/doctors/doctorSlice';
 import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
+import Carousel from 'react-native-reanimated-carousel';
+import { DoctorsSlider } from '../../components/DoctorsSlider';
 const DoctorImage = require('../../assets/images/doctor.jpg')
+
+
 
 export const DoctorProfile: FC<NavProps & { route: any }> = ({ navigation, route }) => {
     const dispatch = useAppDispatch()
     const { loading } = useAppSelector(state => state.doctor)
+    const { all } = useAppSelector(state => state.doctors)
+    const [currentSlide, setCurrentSlide] = useState(0)
+    const sliderRef = useRef<any>(null)
 
     useEffect(() => {
         const doctorId = route.params?.id
@@ -35,7 +42,7 @@ export const DoctorProfile: FC<NavProps & { route: any }> = ({ navigation, route
         <ScrollView>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <BackIcon />
                     </TouchableOpacity>
                     <Text style={[cs.title]}>Врач</Text>
@@ -141,25 +148,9 @@ export const DoctorProfile: FC<NavProps & { route: any }> = ({ navigation, route
                                             <Text style={[cs.text, cs.txtCenter]}>Приём пациентов ведут высококвалифицированные врачи, за плечами которых длительная практика и широкие знания в своей сфере.</Text>
                                         </View>
                                         <View style={[cs.fColumn, cs.spaceXL]}>
-                                            <View style={[cs.fColumn, cs.spaceS]}>
-                                                <View>
-                                                    {/* <DoctorItem  /> */}
-                                                </View>
-                                                <View style={[cs.fAlCenter]}>
-                                                    <View style={[cs.fRowBetw, cs.fAlCenter, cs.spaceXL, { maxWidth: 154 }]}>
-                                                        <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
-                                                            <ArrowBlockLeft width={32} height={32} />
-                                                        </TouchableOpacity>
-                                                        <Text style={[cs.text]}>1/30</Text>
-                                                        <TouchableOpacity style={[cs.btnShadow, { maxWidth: 32, borderRadius: 6 }]}>
-                                                            <ArrowBlockRight width={32} height={32} />
-                                                        </TouchableOpacity>
-                                                    </View>
-                                                </View>
-
-                                            </View>
+                                            <DoctorsSlider navigation={navigation} />
                                             <View style={[cs.fAlCenter]}>
-                                                <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
+                                                <BlueLink onPress={() => navigation.navigate("doctors")} title={"Смотреть всех врачей"} />
                                             </View>
                                         </View>
                                     </View>

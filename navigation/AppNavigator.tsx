@@ -65,7 +65,7 @@ const AppNavigator = () => {
         <NavigationContainer>
             <EventProvider>
                 <View style={[styles.main]}>
-                    <Stack.Navigator initialRouteName={"doctors"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
+                    <Stack.Navigator initialRouteName={"home"} screenOptions={{ headerShown: false, contentStyle: { backgroundColor: "transparent" } }}>
                         {
                             !token.valid ?
                                 <>

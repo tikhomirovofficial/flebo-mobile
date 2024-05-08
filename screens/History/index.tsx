@@ -32,7 +32,7 @@ export const History: FC<NavProps> = ({ navigation }) => {
         <ScrollView>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()} >
                         <BackIcon />
                     </TouchableOpacity>
                     <Text style={[cs.title]}>История посещения</Text>

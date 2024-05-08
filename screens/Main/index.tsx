@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import AppContainer from '../../components/AppContainer';
 import { cs } from '../../common/styles';
-import { ArrowRight, BackIcon, DocsIcon, DoctorThingIcon, HistoryIcon, MenuIcon, PlanIcon, ProfileIcon, SearchIcon } from '../../icons';
+import { ArrowRight, BackIcon, DocsIcon, DoctorThingIcon, HistoryIcon, MenuIcon, PenDrawedIcon, PenDrawedUnderIcon, PlanIcon, ProfileIcon, SearchIcon } from '../../icons';
 import { InputField } from '../../components/InputField';
 import MainButton from '../../components/MainButton';
 import { phoneMask } from '../../config/masks';
@@ -16,6 +16,7 @@ import { DoctorItem } from '../../components/DoctorItem';
 import { BlueLink } from '../../components/BlueLink';
 import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
+import { handleOrderModal } from '../../app/features/modals/modalsSlice';
 
 const UziServiceImage = require('../../assets/images/services/uzi.jpg')
 const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
@@ -25,6 +26,17 @@ export const Main: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { data, loadings } = useAppSelector(state => state.profile)
     const { doctors, documents } = useAppSelector(state => state)
+
+    const handleToOrder = () => {
+        dispatch(handleOrderModal())
+    }
+
+    const handleToDocuments = () => {
+        navigation.navigate("documents")
+    }
+    const handleToDoctors = () => {
+        navigation.navigate("doctors")
+    }
 
     return (
         <ScrollView>
@@ -61,20 +73,18 @@ export const Main: FC<NavProps> = ({ navigation }) => {
 
                                         </SkeletonContainer> :
                                         <>
-                                            <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("documents")} style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
                                                 <Text style={[cs.subTitle, cs.colorDark, { fontSize: 32 }]}>Результаты анализов</Text>
                                                 <MenuIcon />
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
+                                            <TouchableOpacity onPress={handleToOrder} style={[{ padding: 24 }, cs.bgGray, cs.fRow, cs.fAlCenter, cs.fRowBetw, cs.spaceS, cs.mainRadius]}>
                                                 <Text style={[cs.subTitle, cs.colorDark, { fontSize: 32 }]}>Записаться к врачу</Text>
-                                                <MenuIcon />
+                                                <PenDrawedIcon />
                                             </TouchableOpacity>
                                         </>
                                 }
 
                             </View>
-
-
                         </View>
                     </AppContainer>
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
@@ -105,31 +115,25 @@ export const Main: FC<NavProps> = ({ navigation }) => {
 
                         }
                         <View style={[cs.fCenterRow]}>
-                            <BlueLink onPress={() => alert("sas")} title={"Смотреть все документы"} />
+                            <BlueLink onPress={handleToDocuments} title={"Смотреть все документы"} />
                         </View>
-
                     </AppContainer>
                     <AppContainer style={[cs.fColumn, cs.spaceM]}>
                         <Text style={[cs.subTitle]}>Врачи</Text>
-
-
                         {
                             doctors.all.loading ?
                                 <SkeletonContainer>
                                     <SkeletonView width={"100%"} height={189} />
                                 </SkeletonContainer> :
                                 <View>
-                                    <DoctorItem {...doctors.all.items[0]} />
+                                    <DoctorItem navigation={navigation} {...doctors.all.items[0]} />
                                 </View>
                         }
-
                         <View style={[cs.fCenterRow]}>
-                            <BlueLink onPress={() => alert("sas")} title={"Смотреть всех врачей"} />
+                            <BlueLink onPress={handleToDoctors} title={"Смотреть всех врачей"} />
                         </View>
-
                     </AppContainer>
                 </View>
-
             </MainContainer >
         </ScrollView >
     )
