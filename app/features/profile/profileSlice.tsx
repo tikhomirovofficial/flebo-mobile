@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProfileData, ProfileEditTextFields } from "../../../types/entities/user.types";
-import { GetProfileFilledRes, ProfileEditReq, ProfileEditRes, ProfileGetRes, StorePushTokenReq, StorePushTokenRes } from "../../../types/api/user.api.types";
+import { CitiesGetRes, GetProfileFilledRes, ProfileEditReq, ProfileEditRes, ProfileGetRes, StorePushTokenReq, StorePushTokenRes } from "../../../types/api/user.api.types";
 import { AxiosResponse } from "axios";
 import { UserApi } from "../../../http/api/user.api";
 import { correctFormDate } from "../../../utils/forms/dates/correctFormDate";
@@ -66,20 +66,7 @@ const initialState: ProfileSliceState = {
             disabled: true,
             err: ""
         },
-        available_cities: [
-            {
-                id: 1,
-                name: "Москва"
-            },
-            {
-                id: 2,
-                name: "Питер"
-            },
-            {
-                id: 3,
-                name: "Ульяновск"
-            }
-        ],
+        available_cities: [],
         available_genders: [
             {
                 id: 1,
@@ -92,7 +79,6 @@ const initialState: ProfileSliceState = {
         ],
 
     },
-
     loadings: {
         profile: true,
     }
@@ -115,6 +101,35 @@ export const getProfile = createAsyncThunk(
                     email: "",
                     dob: "2000-11-11",
                     gender: true
+                })
+            }, 1000)
+        })
+    }
+)
+export const getCities = createAsyncThunk(
+    'cities/get',
+    async (_, { dispatch }) => {
+        // const res: AxiosResponse<ProfileGetRes> = await handleTokenRefreshedRequest(null, UserApi.GetProfile)
+        // console.log("profile ", res.data);
+        // return res.data
+        return new Promise<CitiesGetRes>((res, rej) => {
+            setTimeout(() => {
+                res({
+                    status: true,
+                    cities: [
+                        {
+                            id: 1,
+                            name: "Москва"
+                        },
+                        {
+                            id: 2,
+                            name: "Питер"
+                        },
+                        {
+                            id: 3,
+                            name: "Ульяновск"
+                        }
+                    ]
                 })
             }, 1000)
         })
@@ -240,6 +255,16 @@ export const ProfileSlice = createSlice({
             state.has_profile = action.payload.is_fill_fio
         })
         builder.addCase(getHasProfile.rejected, (state, action) => {
+            console.log(action.error);
+        })
+        //GET PROFILE CITIES
+        builder.addCase(getCities.pending, (state, action) => {
+            console.log(`Ожидаем ответ от заполненности профиля`);
+        })
+        builder.addCase(getCities.fulfilled, (state, action) => {
+            state.edit_form.available_cities = action.payload.cities
+        })
+        builder.addCase(getCities.rejected, (state, action) => {
             console.log(action.error);
         })
         //PROFILE

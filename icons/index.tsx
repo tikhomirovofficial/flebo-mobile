@@ -176,12 +176,35 @@ export const DropDownIcon: FC<IconProps> = ({ width = 32, height = 32, stroke = 
 }
 export const ArrowDownIcon: FC<IconProps> = ({ width = 12, height = 7, stroke = "#0BA0B5" }) => {
     return (
-        <Svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+        <Svg width={width} height={height} viewBox="0 0 12 7" fill="none">
             <Path d="M11 0.999999L6 6L1 1" stroke="#0BA0B5" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
         </Svg>
 
     )
 }
+export const EyeOpened: FC<IconProps> = ({ width = 21, height = 16, stroke = "#0BA0B5" }) => {
+    return (
+        <Svg width={width} height={height} viewBox="0 0 20 14" fill="none">
+            <Path d="M12.8291 7.00002C12.8291 8.42022 11.5623 9.57145 9.99955 9.57145C8.43689 9.57145 7.17004 8.42022 7.17004 7.00002C7.17004 5.57982 8.43689 4.42859 9.99955 4.42859C11.5623 4.42859 12.8291 5.57982 12.8291 7.00002Z" stroke="#0BA0B5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <Path d="M10 1C5.77678 1 2.20187 3.52247 1 7C2.20185 10.4775 5.77678 13 10 13C14.2232 13 17.7981 10.4775 19 7C17.7981 3.52249 14.2232 1 10 1Z" stroke="#0BA0B5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        </Svg>
+
+
+    )
+}
+export const EyeClosed: FC<IconProps> = ({ width = 22, height = 19, stroke = "#0BA0B5" }) => {
+    return (
+        <Svg width={width} height={height} viewBox="0 0 20 18" fill="none">
+            <Path d="M1.51119 1L18.4884 17M7.96658 7.14546C7.47364 7.62542 7.17027 8.27929 7.17027 9C7.17027 10.4728 8.43714 11.6667 9.9998 11.6667C10.7756 11.6667 11.4784 11.3724 11.9895 10.896M4.81232 4.24191C3.02094 5.35586 1.65647 7.03017 1 9C2.20185 12.6063 5.77679 15.2222 9.99998 15.2222C11.8759 15.2222 13.6239 14.7061 15.0928 13.8164M9.05662 2.82168C9.36692 2.79265 9.68166 2.77778 9.99998 2.77778C14.2233 2.77778 17.7982 5.3937 19 9C18.7352 9.79467 18.3551 10.5412 17.8784 11.2222" stroke="#0BA0B5" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        </Svg>
+
+
+
+    )
+}
+
+
+
 
 
 

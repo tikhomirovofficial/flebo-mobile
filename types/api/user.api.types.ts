@@ -21,6 +21,11 @@ export type AuthRefreshRes = Pick<JWT, "access">
 // Получить данные пользователя
 export type ProfileGetRes = ProfileData & ResponseStatus
 
+// Получить доступные города
+export type CitiesGetRes = {
+    cities: Array<{ name: string } & HasId>
+} & ResponseStatus
+
 // Записать токен пуш-уведомлений
 export type StorePushTokenReq = {
     token: string

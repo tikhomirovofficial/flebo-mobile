@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Animated, { FadeIn } from 'react-native-reanimated'
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { useAppSelector } from '../../app/base/hooks'
 import { TouchableWithoutFeedback, View } from 'react-native'
 

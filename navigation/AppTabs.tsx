@@ -32,24 +32,22 @@ const AppTab: FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
                         }
                         return <BackIcon />
                     }
-                    const onPress = () => {
-                        const event = navigation.emit({
-                            type: 'tabPress',
-                            target: route.key,
-                            canPreventDefault: true
-                        });
+                    const onPress =
+                        route.name !== "support" ?
+                            () => {
+                                const event = navigation.emit({
+                                    type: 'tabPress',
+                                    target: route.key,
+                                    canPreventDefault: true
+                                });
 
-                        if (!isFocused && !event.defaultPrevented) {
-                            navigation.navigate(route.name);
-                        }
-                    };
+                                if (!isFocused && !event.defaultPrevented) {
+                                    navigation.navigate(route.name);
+                                }
+                            } : () => {
+                                alert("Ссылка")
+                            }
 
-                    const onLongPress = () => {
-                        navigation.emit({
-                            type: 'tabLongPress',
-                            target: route.key,
-                        });
-                    };
 
                     return (
                         <TouchableOpacity
@@ -58,7 +56,6 @@ const AppTab: FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
                             accessibilityLabel={options.tabBarAccessibilityLabel}
                             testID={options.tabBarTestID}
                             onPress={onPress}
-                            onLongPress={onLongPress}
                             style={[cs.fAlCenter, cs.spaceS]}
                         >
 

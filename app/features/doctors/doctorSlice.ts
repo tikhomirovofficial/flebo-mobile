@@ -4,6 +4,7 @@ import { AxiosResponse } from "axios";
 
 import { AllDoctorsGetReq, AllDoctorsGetRes, DoctorByIdGetReq, DoctorByIdGetRes } from "../../../types/api/doctors.api.types";
 import { DoctorApi } from "../../../types/entities/doctors.types";
+import { handleTokenRefreshedRequest } from "../../../utils/auth/handleThunkAuth";
 
 
 type DoctorsSliceState = {

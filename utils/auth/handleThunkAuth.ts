@@ -4,7 +4,7 @@ import { checkIsValid } from "./checkToken";
 import { AxiosError } from "axios";
 import { UserApi } from "../../http/api/user.api";
 
-export async function handleTokenRefreshedRequest(cb: any | null = null, apiFunction: Function, ...args: any[]) {
+export async function handleTokenRefreshedRequest(cbRefreshNotValid: any | null = null, apiFunction: Function, ...args: any[]) {
     const isRefreshValid = await checkIsValid()
 
     if (isRefreshValid) {
@@ -27,8 +27,8 @@ export async function handleTokenRefreshedRequest(cb: any | null = null, apiFunc
                     console.log("refreshed");
                     return await apiFunction(...args);
                 } catch (error) {
-                    if(cb) {
-                        cb()
+                    if(cbRefreshNotValid) {
+                        cbRefreshNotValid()
                     }
                     return await "refresh_not_valid"
                 }

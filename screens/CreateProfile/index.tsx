@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../app/base/hooks';
 import { NavProps } from '../../types/common.types';
 import { MainContainer } from '../../components/MainContainer';
 import { SelectField } from '../../components/SelectField';
-import { checkValidForm, editProfile, handleEditProfileSelectFields, handleEditProfileTextFields } from '../../app/features/profile/profileSlice';
+import { checkValidForm, editProfile, getCities, handleEditProfileSelectFields, handleEditProfileTextFields } from '../../app/features/profile/profileSlice';
 import { ProfileEditReq } from '../../types/api/user.api.types';
 
 
@@ -26,7 +26,7 @@ export const CreateProfile: FC<NavProps> = ({ navigation }) => {
             gender: select_fields.gender === 1 ? true : false,
             city: select_fields.city,
             dob: text_fields.dob,
-            email: text_fields.email,   
+            email: text_fields.email,
         }
 
         if (text_fields.password !== undefined && text_fields.password?.length > 0) {
@@ -34,8 +34,12 @@ export const CreateProfile: FC<NavProps> = ({ navigation }) => {
         }
         dispatch(editProfile(preparedReq))
     }
-    
+
     useEffect(() => { dispatch(checkValidForm()) }, [text_fields, select_fields])
+
+    useEffect(() => {
+        dispatch(getCities())
+    }, [])
 
     return (
         <ScrollView nestedScrollEnabled>

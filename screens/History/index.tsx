@@ -47,6 +47,7 @@ export const History: FC<NavProps> = ({ navigation }) => {
                                     </SkeletonContainer>
                                 </View>
                                 :
+
                                 all.items.map((item, index) => (
                                     <HistoryItem
                                         isDark={index % 2 !== 0}
@@ -55,6 +56,16 @@ export const History: FC<NavProps> = ({ navigation }) => {
                                         description={item.name}
                                     />
                                 ))
+                        }
+                        {
+                            all.part_loading ?
+                                <View style={[cs.fColumn, cs.spaceS, {marginTop: 10}]}>
+                                    <SkeletonContainer>
+                                        <SkeletonView width={"100%"} height={60} />
+                                        <SkeletonView width={"100%"} height={60} />
+                                    </SkeletonContainer>
+                                </View>
+                                : null
                         }
 
                     </View>

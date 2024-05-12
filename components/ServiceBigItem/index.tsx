@@ -3,6 +3,8 @@ import { View, ImageBackground, Text } from 'react-native'
 import { cs } from '../../common/styles'
 import { PenDrawedUnderIcon } from '../../icons'
 import MainButton from '../MainButton'
+import { useAppDispatch } from '../../app/base/hooks'
+import { handleOrderModal } from '../../app/features/modals/modalsSlice'
 
 type ServiceBigItemProps = {
     title: string,
@@ -10,6 +12,12 @@ type ServiceBigItemProps = {
 }
 
 export const ServiceBigItem: FC<ServiceBigItemProps> = ({ title, image }) => {
+    const dispatch = useAppDispatch()
+
+    const handleToOrder = () => {
+        dispatch(handleOrderModal())
+
+    }
     return (
         <View style={[{ width: "100%" }, cs.spaceS]}>
             <View>
@@ -22,7 +30,7 @@ export const ServiceBigItem: FC<ServiceBigItemProps> = ({ title, image }) => {
                     <Text style={[cs.text, { width: "85%", marginBottom: 24 }]}>Короткое описание услуги на несколько строчек, чтобы объяснить о чем тут речь</Text>
                 </View>
             </View>
-            <MainButton style={[cs.spaceS]} handlePress={() => { }}>
+            <MainButton style={[cs.spaceS]} handlePress={handleToOrder}>
                 <PenDrawedUnderIcon height={16} width={14} stroke={"white"} />
                 <Text style={[cs.txtCenter, cs.fzM, cs.colorWhite, cs.fSemi]}>Записаться на прием</Text>
             </MainButton>

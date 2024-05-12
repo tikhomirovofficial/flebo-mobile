@@ -58,11 +58,11 @@ export const HistorySlice = createSlice({
     name: "history",
     initialState,
     reducers: {
-        resetAllDocuments(state) {
+        resetHistory(state) {
             state.all = initialState.all
         },
 
-        incrementDocumentsPart: state => {
+        incrementHistoryPart: state => {
             state.all.part += 1
         }
 
@@ -92,8 +92,8 @@ export const HistorySlice = createSlice({
 })
 
 export const {
-    resetAllDocuments,
-    incrementDocumentsPart
+    resetHistory,
+    incrementHistoryPart
 } = HistorySlice.actions
 
 

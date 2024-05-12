@@ -110,10 +110,7 @@ const OrderModal = () => {
 
                 </View>
             </WhiteBordered>
-
-
         </Modal >
-
     );
 };
 
