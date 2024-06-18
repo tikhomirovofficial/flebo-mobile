@@ -89,7 +89,6 @@ const OrderModal = () => {
                         <View style={{ flex: 0.4 }}></View>
                     </View>
                     <View style={[styles.profileDataContent, cs.spaceM]}>
-
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <Text style={[cs.fzS, cs.text]}>Измените личные данные</Text>
                             <InputField placeholder='Имя' val={""} onChange={(val) => { }} />
