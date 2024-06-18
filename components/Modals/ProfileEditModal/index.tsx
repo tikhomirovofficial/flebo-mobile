@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "../../../app/base/hooks";
-import { Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback } from "react-native";
-
+import { Modal, StyleSheet, Text, TouchableOpacity, View, } from "react-native";
 import { cs } from "../../../common/styles";
-
 import { InputField } from '../../InputField';
 import { containerStyles } from '../../AppContainer';
 import WhiteBordered from '../../WhiteBordered';
-import { ModalShadow } from '../../ModalShadow';
 import MainButton from '../../MainButton';
 import { handleProfileEditModal } from '../../../app/features/modals/modalsSlice';
 
@@ -31,10 +28,6 @@ const ProfileEditModal = () => {
 
     return (
         <Modal style={{ position: "relative" }} animationType={"slide"} visible={profileEditModal} transparent={true}>
-            <TouchableOpacity onPress={() => alert("SAS")} style={[{ position: "absolute", height: "100%", width: "100%", top: 0, left: 0, }]}>
-                <ModalShadow show={profileEditModal} />
-            </TouchableOpacity>
-
             <WhiteBordered onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative" }}>
                 <View style={[cs.flexOne, styles.profileDataBlock, cs.fColumnBetw, cs.spaceXXL]}>
                     <View style={[cs.fRowBetw, cs.fAlCenter]}>
@@ -48,7 +41,6 @@ const ProfileEditModal = () => {
                         <View style={{ flex: 0.4 }}></View>
                     </View>
                     <View style={[styles.profileDataContent, cs.spaceM]}>
-
                         <View style={[cs.fColumn, cs.spaceM]}>
                             <Text style={[cs.fzS, cs.text]}>Измените личные данные</Text>
                             <InputField placeholder='Имя' val={""} onChange={(val) => { }} />
@@ -56,7 +48,6 @@ const ProfileEditModal = () => {
                             <InputField placeholder='Отчество' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Дата рождения' val={""} onChange={(val) => { }} />
-
                             <InputField placeholder='Придумайте пароль' val={""} onChange={(val) => { }} />
                             <InputField placeholder='Подтверждение пароля' val={""} onChange={(val) => { }} />
                             <InputField placeholder='E-mail' val={""} onChange={(val) => { }} />

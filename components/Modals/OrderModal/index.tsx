@@ -71,9 +71,9 @@ const OrderModal = () => {
     }, [])
 
     return (
-        <Modal style={{ position: "relative" }} animationType={"slide"} visible={orderModal} transparent={true}>
-            <TouchableOpacity onPress={() => alert("SAS")} style={[{ position: "absolute", height: "100%", width: "100%", top: 0, left: 0, }]}>
-                <ModalShadow show={orderModal} />
+        <Modal style={{ position: "relative", zIndex: 5}} animationType={"slide"} visible={orderModal} transparent={true}>
+            <TouchableOpacity onPress={() => alert("SAS")} style={[{ position: "absolute",  height: "100%", width: "100%", top: 0, left: 0, }]}>
+                {/* <ModalShadow show={orderModal} /> */}
             </TouchableOpacity>
 
             <WhiteBordered likeBottomSheet={{ maxHeight: 500 }} onOutsideClick={handleModal} isModal style={{ paddingBottom: 20, position: "relative" }}>

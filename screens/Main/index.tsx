@@ -17,6 +17,7 @@ import { BlueLink } from '../../components/BlueLink';
 import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
 import { handleOrderModal } from '../../app/features/modals/modalsSlice';
+import { RefreshContainer } from '../../components/RefreshContainer';
 
 const UziServiceImage = require('../../assets/images/services/uzi.jpg')
 const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
@@ -39,9 +40,8 @@ export const Main: FC<NavProps> = ({ navigation }) => {
     }
 
     return (
-        <ScrollView>
+        <RefreshContainer>
             <MainContainer>
-
                 <View style={[cs.fColumn, cs.spaceXL]}>
                     <AppContainer>
                         <View style={[cs.fColumn, cs.spaceM]}>
@@ -55,8 +55,6 @@ export const Main: FC<NavProps> = ({ navigation }) => {
 
                                         <Text style={[cs.title]}>+{data.phone}</Text>
                                 }
-
-
 
                                 {/* <View style={[styles.search, cs.bgGray, cs.fRow, cs.fAlCenter, cs.spaceS, cs.mainRadius]}>
                                     <SearchIcon />
@@ -135,7 +133,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
                     </AppContainer>
                 </View>
             </MainContainer >
-        </ScrollView >
+        </RefreshContainer >
     )
 }
 

@@ -5,6 +5,8 @@ import AppNavigator from './navigation/AppNavigator';
 import useFonts from './hooks/useFonts';
 import { cs } from './common/styles';
 import { WithNetwork } from './containers/WithNetwork';
+import { ModalShadow } from './components/ModalShadow';
+import { ModalsContainer } from './containers/ModalsContainer';
 
 export const Root = () => {
     const [fontsLoaded] = useFonts();
@@ -12,10 +14,12 @@ export const Root = () => {
     if (fontsLoaded) {
         return (
             <>
-                <StatusBar style={"auto"} />
+
                 <WithNetwork>
                     <AppNavigator />
+                    <ModalsContainer />
                 </WithNetwork>
+                <StatusBar style={"auto"} />
             </>
         )
     }

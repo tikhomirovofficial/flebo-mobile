@@ -2,7 +2,6 @@ import React, { FC, ReactNode, useState } from 'react';
 import { Dimensions, ScrollView, StyleSheet, View, ViewStyle, Text, RefreshControl, TouchableWithoutFeedback } from "react-native";
 import AppContainer from "../../components/AppContainer";
 import { cs } from "../../common/styles";
-import { useAppSelector } from '../../app/base/hooks';
 
 
 type WhiteBorderedProps = {
@@ -32,9 +31,6 @@ const WhiteBorderedLayout: FC<WhiteBorderedProps> = ({
     return (
         <TouchableWithoutFeedback onPress={onOutsideClick}>
             <View style={[styles.baseView, { backgroundColor: "rgba(0, 0, 0, 0.0)" }]}>
-                {/* <TouchableWithoutFeedback style={[cs.pAbs, { top: 0, left: 0, zIndex: 1 }]} onPress={() => alert("da")}>
-                    <View style={[{ backgroundColor: "blue", width: "100%", height: "100%" }]}></View>
-                </TouchableWithoutFeedback> */}
                 {
                     likeBottomSheet ?
                         <View style={[cs.flexOne, cs.pRel, { justifyContent: "flex-end" }]}>

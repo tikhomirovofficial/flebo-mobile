@@ -43,12 +43,15 @@ export const Documents: FC<NavProps> = ({ navigation }) => {
     const [currentFilter, setCurrentFilter] = useState(1)
 
     const { all } = useAppSelector(state => state.documents)
+    
     useEffect(() => {
         console.log(all.loading);
 
     }, [all.items])
+
     return (
-        <ScrollView nestedScrollEnabled contentContainerStyle={{ minHeight: "100%" }}>
+        <ScrollView
+         nestedScrollEnabled contentContainerStyle={{ minHeight: "100%" }}>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
