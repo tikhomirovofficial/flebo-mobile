@@ -1,10 +1,20 @@
 import React, { FC } from 'react'
-import { ScrollView } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import { HasNodeChildren } from '../../types/common.types'
 
-export const RefreshContainer: FC<HasNodeChildren> = ({ children }) => {
+type RefreshContainerProps = {
+    onRefresh: () => any
+    refreshing: boolean
+}
+export const RefreshContainer: FC<HasNodeChildren & RefreshContainerProps> = ({ children, refreshing, onRefresh }) => {
+    const openedSome = false
     return (
-        <ScrollView>
+        <ScrollView nestedScrollEnabled={true} refreshControl={
+            onRefresh !== undefined && !openedSome ? <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+            /> : undefined}
+        >
             {children}
         </ScrollView>
     )

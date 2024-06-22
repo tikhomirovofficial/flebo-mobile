@@ -40,7 +40,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
     }
 
     return (
-        <RefreshContainer>
+        <RefreshContainer onRefresh={() => alert("sas")} refreshing={!true}>
             <MainContainer>
                 <View style={[cs.fColumn, cs.spaceXL]}>
                     <AppContainer>
