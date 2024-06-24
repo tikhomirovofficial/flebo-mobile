@@ -15,15 +15,18 @@ import { handleProfileEditModal } from '../../app/features/modals/modalsSlice';
 import OrderModal from '../../components/Modals/OrderModal';
 import { SkeletonView } from '../../components/SkeletonView';
 import { SkeletonContainer } from 'react-native-skeleton-component';
+import { useRefresh } from '../../hooks/useRefresh';
+import { RefreshContainer } from '../../components/RefreshContainer';
 
 export const Hub: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { profileEditModal } = useAppSelector(state => state.modals)
     const { data, loadings } = useAppSelector(state => state.profile)
+    const { refreshing, sendRefresh } = useRefresh()
 
     return (
         <>
-            <ScrollView>
+            <RefreshContainer refreshing={refreshing} onRefresh={sendRefresh}>
                 <MainContainer>
                     <AppContainer style={{ height: "100%" }}>
                         <View style={[cs.flexOne, cs.fColumnBetw]}>
@@ -73,7 +76,7 @@ export const Hub: FC<NavProps> = ({ navigation }) => {
                         </View>
                     </AppContainer>
                 </MainContainer>
-            </ScrollView>
+            </RefreshContainer>
             {profileEditModal ? <ProfileEditModal /> : false}
         </>
 

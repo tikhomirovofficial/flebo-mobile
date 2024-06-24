@@ -17,6 +17,8 @@ import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
 import { DropDown } from '../../components/DropDown';
+import { RefreshContainer } from '../../components/RefreshContainer';
+import { useRefresh } from '../../hooks/useRefresh';
 
 const documentsTypes = [
     {
@@ -41,17 +43,16 @@ export const Documents: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const [filterOpened, setFilterOpened] = useState(false)
     const [currentFilter, setCurrentFilter] = useState(1)
-
+    const { refreshing, sendRefresh } = useRefresh()
     const { all } = useAppSelector(state => state.documents)
-    
+
     useEffect(() => {
         console.log(all.loading);
 
     }, [all.items])
 
     return (
-        <ScrollView
-         nestedScrollEnabled contentContainerStyle={{ minHeight: "100%" }}>
+        <RefreshContainer refreshing={refreshing} onRefresh={sendRefresh} style={{ minHeight: "100%" }}>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -114,7 +115,7 @@ export const Documents: FC<NavProps> = ({ navigation }) => {
 
                 </AppContainer>
             </MainContainer >
-        </ScrollView >
+        </RefreshContainer >
     )
 }
 

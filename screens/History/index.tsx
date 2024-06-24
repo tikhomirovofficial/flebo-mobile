@@ -18,18 +18,21 @@ import { HistoryItem } from '../../components/HistoryItem';
 import { getAllHistory } from '../../app/features/history/historySlice';
 import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
+import { useRefresh } from '../../hooks/useRefresh';
+import { RefreshContainer } from '../../components/RefreshContainer';
 
 
 export const History: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { all } = useAppSelector(state => state.history)
+    const { refreshing, sendRefresh } = useRefresh()
 
     useEffect(() => {
         dispatch(getAllHistory({}))
     }, [])
 
     return (
-        <ScrollView>
+        <RefreshContainer onRefresh={sendRefresh} refreshing={refreshing}>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
                     <TouchableOpacity onPress={() => navigation.goBack()} >
@@ -59,7 +62,7 @@ export const History: FC<NavProps> = ({ navigation }) => {
                         }
                         {
                             all.part_loading ?
-                                <View style={[cs.fColumn, cs.spaceS, {marginTop: 10}]}>
+                                <View style={[cs.fColumn, cs.spaceS, { marginTop: 10 }]}>
                                     <SkeletonContainer>
                                         <SkeletonView width={"100%"} height={60} />
                                         <SkeletonView width={"100%"} height={60} />
@@ -71,6 +74,6 @@ export const History: FC<NavProps> = ({ navigation }) => {
                     </View>
                 </AppContainer>
             </MainContainer >
-        </ScrollView >
+        </RefreshContainer>
     )
 }

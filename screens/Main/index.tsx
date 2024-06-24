@@ -18,6 +18,7 @@ import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
 import { handleOrderModal } from '../../app/features/modals/modalsSlice';
 import { RefreshContainer } from '../../components/RefreshContainer';
+import { useRefresh } from '../../hooks/useRefresh';
 
 const UziServiceImage = require('../../assets/images/services/uzi.jpg')
 const AnalisysServiceImage = require('../../assets/images/services/analysis.jpg')
@@ -27,6 +28,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { data, loadings } = useAppSelector(state => state.profile)
     const { doctors, documents } = useAppSelector(state => state)
+    const { sendRefresh, refreshing } = useRefresh()
 
     const handleToOrder = () => {
         dispatch(handleOrderModal())
@@ -40,7 +42,7 @@ export const Main: FC<NavProps> = ({ navigation }) => {
     }
 
     return (
-        <RefreshContainer onRefresh={() => alert("sas")} refreshing={!true}>
+        <RefreshContainer onRefresh={sendRefresh} refreshing={refreshing}>
             <MainContainer>
                 <View style={[cs.fColumn, cs.spaceXL]}>
                     <AppContainer>

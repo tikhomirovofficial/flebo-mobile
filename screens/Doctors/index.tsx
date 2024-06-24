@@ -17,14 +17,17 @@ import { ServiceBigItem } from '../../components/ServiceBigItem';
 import { getAllDoctors } from '../../app/features/doctors/doctorsSlice';
 import { SkeletonContainer } from 'react-native-skeleton-component';
 import { SkeletonView } from '../../components/SkeletonView';
+import { useRefresh } from '../../hooks/useRefresh';
+import { RefreshContainer } from '../../components/RefreshContainer';
 
 const DoctorImage = require('../../assets/images/doctor.jpg')
 export const Doctors: FC<NavProps> = ({ navigation }) => {
     const dispatch = useAppDispatch()
     const { all } = useAppSelector(state => state.doctors)
+    const { sendRefresh, refreshing } = useRefresh()
 
     return (
-        <ScrollView>
+        <RefreshContainer onRefresh={sendRefresh} refreshing={refreshing}>
             <MainContainer>
                 <AppContainer style={[cs.fColumn, cs.spaceXL]}>
                     <Text style={[cs.title]}>Список врачей</Text>
@@ -60,7 +63,7 @@ export const Doctors: FC<NavProps> = ({ navigation }) => {
                     </View>
                 </AppContainer>
             </MainContainer >
-        </ScrollView >
+        </RefreshContainer >
     )
 }
 
