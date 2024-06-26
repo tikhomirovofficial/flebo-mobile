@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { View, StyleSheet, TextInput, KeyboardType, Text, TouchableOpacity, FlatList, ScrollView, TouchableWithoutFeedback, TouchableWithoutFeedbackComponent } from 'react-native'
 import { cs } from '../../common/styles'
 import { DropDownIcon } from '../../icons'
@@ -26,9 +26,9 @@ export const SelectField: FC<SelectFieldProps> = ({
     selectHandler
 }) => {
     const [focused, setFocused] = useState(isFocused || false)
+    const ref = useRef<any>(null);
 
     const handleFocused = () => setFocused(!focused)
-    const ref = useRef<any>(null);
 
     const handleClickOutside = (event: any) => {
         if (ref.current && !ref.current.contains(event.target)) {

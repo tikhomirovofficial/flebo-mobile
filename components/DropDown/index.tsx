@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
-import { View, FlatList, TouchableOpacity, StyleSheet, Text, TouchableWithoutFeedback, ViewStyle } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Text, TouchableWithoutFeedback, ViewStyle, SafeAreaView } from 'react-native'
 import { cs } from '../../common/styles'
 import { DropDownIcon } from '../../icons'
 import { SelectFieldProps } from '../SelectField'
 import OutsidePressHandler from 'react-native-outside-press'
+import { FlatList, GestureHandlerRootView, NativeViewGestureHandler } from 'react-native-gesture-handler'
 
 type DropDownProps = Pick<SelectFieldProps, "current" | "fieldTextKey" | "selectHandler" | "placeholder" | "items"> & {
     handleFocused: () => void,
@@ -20,9 +21,9 @@ export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey = "name", st
     return (
 
         <OutsidePressHandler
-            style={[cs.pAbs, styles.dropDownBlock, style]}
+            style={[styles.dropDownBlock, style, cs.pAbs]}
             onOutsidePress={handleFocused}>
-            <View style={{ height: "100%" }}>
+            <GestureHandlerRootView style={[{ height: "100%", }]}>
                 <TouchableOpacity onPress={handleFocused} style={[cs.fRowBetw, cs.pRel, { paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: "rgba(69, 69, 69, 0.4)" }]}>
                     <Text style={[cs.inputText, cs.fzM, cs.colorDark]}>{placeholder}</Text>
                     <View style={[cs.fCenterCol]}>
@@ -36,11 +37,8 @@ export const DropDown: FC<DropDownProps> = ({ current, fieldTextKey = "name", st
                             <Text style={[cs.inputText, cs.fzM, (item.id === current ? { color: cs.blueLink.color } : cs.colorDark)]}>{`${index + 1}. ${untypedItem[fieldKey]}` || "Значение"}</Text>
                         </TouchableOpacity>
                     )
-                }} nestedScrollEnabled contentContainerStyle={[cs.fColumn]} style={{ marginVertical: 10 }} />
-            </View>
-
-
-
+                }} nestedScrollEnabled contentContainerStyle={[{ flexGrow: 1 }]} style={{ marginVertical: 10, }} />
+            </GestureHandlerRootView>
         </OutsidePressHandler>
 
 
